@@ -1,0 +1,60 @@
+import Image from "next/image";
+import { Users } from "lucide-react";
+import { tr } from "@/lib/dictionary";
+import { formatTRY } from "@/lib/format";
+import type { Room } from "@/lib/types";
+
+export function AvailabilityResults({
+  rooms,
+  onSelect,
+}: {
+  rooms: Room[];
+  onSelect: (room: Room) => void;
+}) {
+  if (rooms.length === 0) {
+    return (
+      <p className="py-16 text-center text-sm text-label">
+        {tr.rooms.noResults}
+      </p>
+    );
+  }
+
+  return (
+    <div className="grid gap-6">
+      {rooms.map((room) => (
+        <div
+          key={room.id}
+          className="grid gap-5 border border-line p-5 sm:grid-cols-[160px_1fr_auto] sm:items-center"
+        >
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <Image
+              src={room.images[0]}
+              alt={room.title}
+              fill
+              className="object-cover"
+              sizes="160px"
+            />
+          </div>
+          <div>
+            <h3 className="font-serif text-lg text-ink">{room.title}</h3>
+            <span className="mt-1 flex items-center gap-1.5 text-xs tracking-[0.08em] text-label">
+              <Users className="size-3.5" strokeWidth={1.5} />
+              {tr.rooms.capacity(room.capacity)}
+            </span>
+            <p className="mt-2 text-lg text-ink">
+              {formatTRY(room.nightlyRate)}
+              <span className="ml-1 text-xs text-label">{tr.rooms.perNight}</span>
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => onSelect(room)}
+            className="h-11 border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white sm:justify-self-end"
+          >
+            {tr.reservation.selectRoom}
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}

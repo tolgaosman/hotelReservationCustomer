@@ -1,0 +1,3 @@
+# each app manages its own ignores
+.DS_Store
+*.pem
