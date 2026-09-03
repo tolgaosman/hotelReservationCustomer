@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-import { Check, Clock } from "lucide-react";
+import { Check, Clock, PawPrint, CigaretteOff, CalendarClock, CalendarX } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { AmenityList } from "@/components/rooms/AmenityList";
 import { tr } from "@/lib/dictionary";
-import { heroSlides, hotelSettings, rooms } from "@/lib/mock-data";
+import { heroSlides } from "@/lib/hero-slides";
+import { getRooms, getSettings } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: `${tr.info.heading} — ${tr.brand.name}`,
 };
 
-const allAmenities = Array.from(new Set(rooms.flatMap((room) => room.amenities)));
+export default async function InfoPage() {
+  const [rooms, settings] = await Promise.all([getRooms(), getSettings()]);
+  const allAmenities = Array.from(new Set(rooms.flatMap((room) => room.amenities)));
 
-export default function InfoPage() {
   return (
     <main>
       <PageHero title={tr.info.heading} image={heroSlides[3]} />
@@ -25,7 +27,7 @@ export default function InfoPage() {
                 {tr.info.checkIn}
               </p>
               <p className="mt-1 font-serif text-2xl text-ink">
-                {hotelSettings.checkInTime}
+                {settings.checkInTime}
               </p>
             </div>
           </div>
@@ -36,7 +38,7 @@ export default function InfoPage() {
                 {tr.info.checkOut}
               </p>
               <p className="mt-1 font-serif text-2xl text-ink">
-                {hotelSettings.checkOutTime}
+                {settings.checkOutTime}
               </p>
             </div>
           </div>
@@ -53,12 +55,15 @@ export default function InfoPage() {
           {tr.info.policies}
         </h2>
         <ul className="mt-6 space-y-4">
-          {tr.info.policiesList.map((policy) => (
-            <li key={policy} className="flex items-start gap-3 text-sm text-ink/80">
-              <Check className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={1.5} />
-              {policy}
-            </li>
-          ))}
+          {tr.info.policiesList.map((policy, idx) => {
+            const Icon = [PawPrint, CigaretteOff, CalendarClock, CalendarX][idx] || Check;
+            return (
+              <li key={policy} className="flex items-start gap-3 text-sm text-ink/80">
+                <Icon className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={1.5} />
+                {policy}
+              </li>
+            );
+          })}
         </ul>
       </section>
     </main>

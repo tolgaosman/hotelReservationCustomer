@@ -15,15 +15,15 @@ export function GalleryGrid({ images }: { images: string[] }) {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-6">
         {images.map((image, i) => (
           <button
-            key={image}
+            key={`${image}-${i}`}
             type="button"
             onClick={() => setActive(i)}
             className={cn(
               "relative aspect-square overflow-hidden bg-canvas",
-              i % 5 === 0 && "col-span-2 row-span-2 aspect-square sm:aspect-auto",
+              i % 7 === 0 && "col-span-2 row-span-2 aspect-square sm:aspect-auto",
             )}
           >
             <Image
@@ -31,7 +31,7 @@ export function GalleryGrid({ images }: { images: string[] }) {
               alt=""
               fill
               className="object-cover transition-transform duration-500 hover:scale-105"
-              sizes="(min-width: 1024px) 25vw, 50vw"
+              sizes="(min-width: 1024px) 17vw, 50vw"
             />
           </button>
         ))}

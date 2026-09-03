@@ -24,12 +24,38 @@ export interface Room {
   nightlyRate: number;
   amenities: string[];
   status: RoomStatus;
+  availableCount?: number;
   // --- not in backend yet ---
   slug: string;
   title: string;
   description: string;
   size: number; // m²
+  rating: number;
+  reviewCount: number;
+  reviews?: Review[];
   images: string[];
+}
+
+export interface Review {
+  id: number;
+  reservation_id: number;
+  rating: number;
+  comment: string;
+  is_approved: boolean;
+  created_at: string;
+  reservation?: {
+    guest?: {
+      full_name: string;
+    }
+  };
+}
+
+export interface Addon {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  icon: string;
 }
 
 export interface HotelSettings {
@@ -68,6 +94,9 @@ export interface Reservation {
   guestCount: number;
   status: ReservationStatus;
   totalAmount: number;
+  note?: string;
+  /** Sadece ilişki yüklendiğinde gelir — bkz. ReservationResource. */
+  room?: Room;
 }
 
 export interface BookingSearch {

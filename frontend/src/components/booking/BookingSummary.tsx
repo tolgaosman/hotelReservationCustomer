@@ -1,9 +1,17 @@
+import { GlassCard } from "@/components/rooms/stage/GlassCard";
 import { tr } from "@/lib/dictionary";
 import { formatDate, formatTRY, nights } from "@/lib/format";
-import { hotelSettings } from "@/lib/mock-data";
 import { priceStay } from "@/lib/pricing";
-import type { Room } from "@/lib/types";
-import type { GuestDetails } from "./GuestDetailsForm";
+import type { Room, Addon } from "@/lib/types";
+
+export interface GuestDetails {
+  fullName: string;
+  email: string;
+  phone: string;
+  identityNumber: string;
+  country: string;
+  note: string;
+}
 
 export function BookingSummary({
   room,
@@ -11,19 +19,26 @@ export function BookingSummary({
   departure,
   guests,
   guestDetails,
+  taxRate,
+  selectedAddons = [],
 }: {
   room: Room;
   arrival: Date;
   departure: Date;
   guests: number;
   guestDetails: GuestDetails;
+  taxRate: number;
+  selectedAddons?: Addon[];
 }) {
   const n = nights(arrival, departure);
-  const { roomTotal, taxAmount, total } = priceStay(
+  const { roomTotal, taxAmount, total: roomBaseTotal } = priceStay(
     room.nightlyRate,
-    hotelSettings.taxRate,
+    taxRate,
     n,
   );
+
+  const addonsTotal = selectedAddons.reduce((sum, a) => sum + Number(a.price), 0);
+  const total = roomBaseTotal + addonsTotal;
 
   const rows: [string, string][] = [
     [tr.reservation.summary.room, room.title],
@@ -37,11 +52,11 @@ export function BookingSummary({
     [tr.reservation.guestDetails.email, guestDetails.email],
     [tr.reservation.guestDetails.phone, guestDetails.phone],
     [tr.rooms.roomRate, formatTRY(roomTotal)],
-    [tr.rooms.taxLabel(hotelSettings.taxRate), formatTRY(taxAmount)],
+    [tr.rooms.taxLabel(taxRate), formatTRY(taxAmount)],
   ];
 
   return (
-    <div className="border border-line p-6 sm:p-8">
+    <GlassCard variant="plain" className="p-6 sm:p-8">
       <dl className="divide-y divide-line">
         {rows.map(([label, value]) => (
           <div key={label} className="flex items-center justify-between py-3">
@@ -49,13 +64,24 @@ export function BookingSummary({
             <dd className="text-sm text-ink">{value}</dd>
           </div>
         ))}
+        {selectedAddons.length > 0 && (
+          <div className="py-3">
+            <dt className="text-[11px] tracking-[0.1em] text-label mb-2">EKSTRA HİZMETLER</dt>
+            {selectedAddons.map(addon => (
+              <div key={addon.id} className="flex items-center justify-between py-1">
+                <dd className="text-sm text-ink">{addon.name}</dd>
+                <dd className="text-sm text-ink">{formatTRY(Number(addon.price))}</dd>
+              </div>
+            ))}
+          </div>
+        )}
       </dl>
       <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
         <span className="text-[11px] tracking-[0.1em] text-label">
           {tr.reservation.summary.total}
         </span>
-        <span className="font-serif text-2xl text-ink">{formatTRY(total)}</span>
+        <span className="text-xl font-medium text-ink">{formatTRY(total)}</span>
       </div>
-    </div>
+    </GlassCard>
   );
 }

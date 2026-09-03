@@ -18,13 +18,14 @@ export function PriceCompareCard({
 }: {
   room: Room;
   rooms: Room[];
-  variant?: "glass" | "plain";
+  variant?: "glass" | "plain" | "brand";
   className?: string;
 }) {
   const max = Math.max(...rooms.map((r) => r.nightlyRate));
   const avg = rooms.reduce((s, r) => s + r.nightlyRate, 0) / rooms.length;
   const pct = Math.round(((room.nightlyRate - avg) / avg) * 100);
   const isCheapest = room.nightlyRate === Math.min(...rooms.map((r) => r.nightlyRate));
+  const inverted = variant === "brand";
 
   const deltaLabel =
     Math.abs(pct) < 3
@@ -35,7 +36,7 @@ export function PriceCompareCard({
 
   return (
     <GlassCard variant={variant} className={className}>
-      <p className="text-[11px] tracking-[0.14em] text-label">
+      <p className={cn("text-[11px] tracking-[0.14em]", inverted ? "text-white/80" : "text-label")}>
         {tr.roomStage.priceCompareHeading}
       </p>
 
@@ -53,14 +54,26 @@ export function PriceCompareCard({
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "block w-full rounded-t-[3px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
-                  active ? "bg-brand" : "bg-ink/15 hover:bg-ink/35",
+                  inverted
+                    ? active
+                      ? "bg-white"
+                      : "bg-white/25 hover:bg-white/45"
+                    : active
+                      ? "bg-brand"
+                      : "bg-ink/15 hover:bg-ink/35",
                 )}
                 style={{ height: `${Math.round((r.nightlyRate / max) * 100)}%` }}
               />
               <span
                 className={cn(
                   "mt-1.5 block text-center text-[9px] tracking-[0.06em]",
-                  active ? "text-ink" : "text-label",
+                  inverted
+                    ? active
+                      ? "text-white"
+                      : "text-white/70"
+                    : active
+                      ? "text-ink"
+                      : "text-label",
                 )}
               >
                 {r.number}
@@ -72,14 +85,21 @@ export function PriceCompareCard({
 
       <div className="mt-3 flex items-center justify-between">
         <div>
-          <p className="text-sm text-ink">
+          <p className={cn("text-sm", inverted ? "text-white" : "text-ink")}>
             {formatTRY(room.nightlyRate)}
-            <span className="ml-1 text-xs text-label">{tr.rooms.perNight}</span>
+            <span className={cn("ml-1 text-xs", inverted ? "text-white/75" : "text-label")}>
+              {tr.rooms.perNight}
+            </span>
           </p>
-          <p className="text-xs text-label">{deltaLabel}</p>
+          <p className={cn("text-xs", inverted ? "text-white/75" : "text-label")}>{deltaLabel}</p>
         </div>
         {isCheapest && (
-          <span className="rounded-full bg-brand/10 px-2.5 py-1 text-[10px] tracking-[0.08em] text-brand">
+          <span
+            className={cn(
+              "rounded-full px-2.5 py-1 text-[10px] tracking-[0.08em]",
+              inverted ? "bg-white/15 text-white" : "bg-brand/10 text-brand",
+            )}
+          >
             {tr.roomStage.lowestPrice}
           </span>
         )}

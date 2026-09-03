@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Users, Maximize } from "lucide-react";
+import { Users, Maximize, Star } from "lucide-react";
 import { tr } from "@/lib/dictionary";
 import { formatTRY } from "@/lib/format";
 import type { Room } from "@/lib/types";
@@ -22,7 +22,12 @@ export function RoomCard({ room }: { room: Room }) {
       </div>
       <div className="p-6">
         <h3 className="font-serif text-xl text-ink">{room.title}</h3>
-        <div className="mt-3 flex items-center gap-4 text-xs tracking-[0.08em] text-label">
+        <div className="mt-2 flex items-center gap-1.5 text-xs text-ink/80">
+          <Star className="size-3.5 fill-brand text-brand" />
+          <span className="font-medium text-ink">{room.rating.toFixed(1)}</span>
+          <span className="text-label">({tr.rooms.reviews(room.reviewCount)})</span>
+        </div>
+        <div className="mt-4 flex items-center gap-4 text-xs tracking-[0.08em] text-label">
           <span className="flex items-center gap-1.5">
             <Users className="size-3.5" strokeWidth={1.5} />
             {tr.rooms.capacity(room.capacity)}

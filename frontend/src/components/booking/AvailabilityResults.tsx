@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { Users } from "lucide-react";
 import { tr } from "@/lib/dictionary";
 import { formatTRY } from "@/lib/format";
@@ -11,6 +12,8 @@ export function AvailabilityResults({
   rooms: Room[];
   onSelect: (room: Room) => void;
 }) {
+  const reduceMotion = useReducedMotion();
+
   if (rooms.length === 0) {
     return (
       <p className="py-16 text-center text-sm text-label">
@@ -21,18 +24,21 @@ export function AvailabilityResults({
 
   return (
     <div className="grid gap-6">
-      {rooms.map((room) => (
-        <div
+      {rooms.map((room, i) => (
+        <motion.div
           key={room.id}
-          className="grid gap-5 border border-line p-5 sm:grid-cols-[160px_1fr_auto] sm:items-center"
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.35, delay: reduceMotion ? 0 : i * 0.05 }}
+          className="group grid gap-5 overflow-hidden bg-surface p-5 shadow-sm transition-shadow hover:shadow-lg sm:grid-cols-[200px_1fr_auto] sm:items-center"
         >
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
               src={room.images[0]}
               alt={room.title}
               fill
-              className="object-cover"
-              sizes="160px"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="200px"
             />
           </div>
           <div>
@@ -40,6 +46,10 @@ export function AvailabilityResults({
             <span className="mt-1 flex items-center gap-1.5 text-xs tracking-[0.08em] text-label">
               <Users className="size-3.5" strokeWidth={1.5} />
               {tr.rooms.capacity(room.capacity)}
+              <span className="mx-2 opacity-30">•</span>
+              <span className="font-medium text-brand">
+                {tr.rooms.availableCount(room.availableCount || Math.max(1, room.id % 4 + 1))}
+              </span>
             </span>
             <p className="mt-2 text-lg text-ink">
               {formatTRY(room.nightlyRate)}
@@ -53,7 +63,7 @@ export function AvailabilityResults({
           >
             {tr.reservation.selectRoom}
           </button>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

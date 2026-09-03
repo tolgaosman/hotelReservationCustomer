@@ -10,14 +10,13 @@ import {
 } from "@/components/ui/sheet";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/AuthContext";
 
 const links = [
-  { href: "/", label: "Ana Sayfa" },
-  { href: "/odalar", label: tr.nav.rooms },
-  { href: "/rezervasyon", label: tr.nav.onlineBooking },
+  { href: "/", label: "Ana sayfa" },
   { href: "/galeri", label: "Galeri" },
-  { href: "/bilgi", label: tr.nav.info },
-  { href: "/iletisim", label: tr.nav.contact },
+  { href: "/bilgi", label: "Bilgi" },
+  { href: "/iletisim", label: "İletişim" },
 ];
 
 interface MobileMenuProps {
@@ -26,11 +25,13 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
+  const { user, logout } = useAuth();
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:max-w-sm">
         <SheetHeader className="border-b border-line pb-4">
-          <SheetTitle className="font-serif text-lg tracking-[0.08em] text-ink">
+          <SheetTitle className="font-serif text-center text-lg tracking-[0.08em] text-ink">
             {tr.brand.name}
           </SheetTitle>
         </SheetHeader>
@@ -40,11 +41,49 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
               key={link.href}
               href={link.href}
               onClick={() => onOpenChange(false)}
-              className="border-b border-line py-4 text-[13px] tracking-[0.14em] text-ink"
+              className="border-b border-line py-4 text-center text-[15px] tracking-normal text-ink"
             >
               {link.label}
             </Link>
           ))}
+          {user ? (
+            <>
+              <Link
+                href="/profil"
+                onClick={() => onOpenChange(false)}
+                className="border-b border-line py-4 text-center text-[15px] tracking-normal text-ink"
+              >
+                {tr.auth.myAccount}
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  onOpenChange(false);
+                  logout();
+                }}
+                className="border-b border-line py-4 text-center text-[15px] tracking-normal text-ink"
+              >
+                {tr.auth.logout}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                onClick={() => onOpenChange(false)}
+                className="border-b border-line py-4 text-center text-[15px] tracking-normal text-ink"
+              >
+                {tr.auth.loginButton}
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => onOpenChange(false)}
+                className="border-b border-line py-4 text-center text-[15px] tracking-normal text-ink"
+              >
+                {tr.auth.registerCta}
+              </Link>
+            </>
+          )}
           <Link
             href="/rezervasyon"
             onClick={() => onOpenChange(false)}

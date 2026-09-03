@@ -1,45 +1,44 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Parisienne } from "next/font/google";
+import { Montserrat, Playfair_Display, Great_Vibes } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { AuthProvider } from "@/lib/AuthContext";
+import { SiteChrome } from "@/components/layout/SiteChrome";
+import { getSettings } from "@/lib/api";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-montserrat",
 });
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-cormorant",
+  variable: "--font-serif",
 });
 
-const parisienne = Parisienne({
-  subsets: ["latin"],
+const greatVibes = Great_Vibes({
   weight: "400",
-  variable: "--font-parisienne",
+  subsets: ["latin"],
+  variable: "--font-script",
 });
 
 export const metadata: Metadata = {
-  title: "W-40 Hotel",
-  description: "Kıbrıs'ın kalbinde lüks konaklama — W-40 Hotel",
+  title: "Oasis Resort",
+  description: "Kıbrıs'ın kalbinde lüks konaklama — Oasis Resort",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSettings();
+
   return (
-    <html
-      lang="tr"
-      className={`${inter.variable} ${cormorant.variable} ${parisienne.variable}`}
-    >
-      <body className="antialiased">
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="tr" className={`${montserrat.variable} ${playfair.variable} ${greatVibes.variable}`}>
+      <body className={`${playfair.variable} ${greatVibes.variable} bg-canvas font-sans text-ink antialiased selection:bg-brand selection:text-white`}>
+        <AuthProvider>
+          <SiteChrome settings={settings}>{children}</SiteChrome>
+        </AuthProvider>
       </body>
     </html>
   );

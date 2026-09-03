@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->alias([
+            'auth.customer' => \App\Http\Middleware\AuthenticateCustomer::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Bu backend sadece /api/* sunan bir REST API'dir; Accept header'ı
+        // göndermeyen istemciler (ör. fetch() varsayılanı) bile validation
+        // hatalarında 302 redirect değil, her zaman JSON almalı.
+        $exceptions->shouldRenderJsonWhen(fn ($request) => $request->is('api/*') || $request->expectsJson());
+    })->create();

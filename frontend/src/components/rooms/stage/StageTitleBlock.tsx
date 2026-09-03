@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { tr } from "@/lib/dictionary";
@@ -58,6 +58,28 @@ export function StageTitleBlock({
       <motion.p {...entrance(0.4)} className="mt-1 text-xs tracking-[0.1em] text-white/75">
         {tr.roomStage.roomNumber(room.number)}
       </motion.p>
+
+      <motion.div {...entrance(0.45)} className="mt-4 flex items-center gap-2">
+        <div className="flex gap-0.5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              className={cn(
+                "size-3.5",
+                i < Math.floor(room.rating)
+                  ? "fill-brand text-brand"
+                  : "fill-white/20 text-transparent",
+              )}
+            />
+          ))}
+        </div>
+        <span className="text-[13px] font-medium text-white">
+          {room.rating.toFixed(1)}
+        </span>
+        <span className="text-xs text-white/70">
+          ({tr.rooms.reviews(room.reviewCount)})
+        </span>
+      </motion.div>
 
       <motion.div {...entrance(0.55)} className="mt-6 flex items-center gap-4">
         {imagesCount > 1 && (

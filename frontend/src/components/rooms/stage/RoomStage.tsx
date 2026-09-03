@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { tr } from "@/lib/dictionary";
-import type { HotelSettings, Room } from "@/lib/types";
+import type { Room } from "@/lib/types";
 import { AmenityRail } from "./AmenityRail";
+import { PolicyRail } from "./PolicyRail";
 import { PriceCompareCard } from "./PriceCompareCard";
 import { StageBackdrop } from "./StageBackdrop";
 import { StageTitleBlock } from "./StageTitleBlock";
-import { StayDetailCard } from "./StayDetailCard";
 import { StoryPanel } from "./StoryPanel";
 import { TripPlanCard } from "./TripPlanCard";
 
@@ -20,11 +20,9 @@ import { TripPlanCard } from "./TripPlanCard";
 export function RoomStage({
   room,
   rooms,
-  settings,
 }: {
   room: Room;
   rooms: Room[];
-  settings: HotelSettings;
 }) {
   const [active, setActive] = useState(0);
   const images = room.images;
@@ -76,35 +74,33 @@ export function RoomStage({
       >
         <StageBackdrop images={images} active={active} title={room.title} />
 
-        <div className="absolute inset-0 z-20 grid grid-cols-[64px_minmax(0,1fr)_360px] grid-rows-[1fr_auto] gap-8 p-8 xl:grid-cols-[minmax(84px,auto)_minmax(0,1fr)_400px] xl:gap-10 xl:p-10">
-          <AmenityRail
-            amenities={room.amenities}
-            className="col-start-1 row-span-2 self-center justify-self-start"
-          />
-
-          <StoryPanel
-            description={room.description}
-            className="col-start-2 row-start-1 max-w-[380px] self-center justify-self-start"
-          />
-
+        {/* Title block: true center of the image, independent of the side rails/cards. */}
+        <div className="absolute inset-0 z-20 flex items-center justify-center p-8 xl:p-10">
           <StageTitleBlock
             room={room}
             imagesCount={images.length}
             active={active}
             onPrev={() => go(-1)}
             onNext={() => go(1)}
-            className="relative z-30 col-start-2 row-start-2 justify-self-center"
+            className="pointer-events-none [&>*]:pointer-events-auto"
           />
+        </div>
 
-          <div className="col-start-3 row-span-2 flex max-h-full flex-col gap-4 self-center justify-self-end overflow-y-auto overscroll-contain py-1 [scrollbar-width:none]">
-            <TripPlanCard />
-            <StayDetailCard
-              capacity={room.capacity}
-              size={room.size}
-              checkInTime={settings.checkInTime}
-              checkOutTime={settings.checkOutTime}
+        <div className="pointer-events-none absolute inset-0 z-20 grid grid-cols-[64px_minmax(0,1fr)_360px] gap-8 p-8 xl:grid-cols-[minmax(84px,auto)_minmax(0,1fr)_400px] xl:gap-10 xl:p-10">
+          <div className="pointer-events-auto col-start-1 row-start-1 flex flex-col items-start gap-4 self-center justify-self-start">
+            <AmenityRail amenities={room.amenities} />
+            <PolicyRail />
+          </div>
+
+          <div className="pointer-events-auto col-start-3 row-start-1 flex flex-col gap-4 self-center justify-self-end py-1">
+            <TripPlanCard variant="brand" />
+            <PriceCompareCard
+              room={room}
+              rooms={rooms}
+              variant="brand"
+              className="hidden xl:block"
             />
-            <PriceCompareCard room={room} rooms={rooms} className="hidden xl:block" />
+            <StoryPanel description={room.description} variant="brand" className="w-full" />
           </div>
         </div>
 

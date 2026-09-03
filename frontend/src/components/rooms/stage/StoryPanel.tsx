@@ -1,19 +1,26 @@
 import { tr } from "@/lib/dictionary";
+import { cn } from "@/lib/utils";
 import { GlassCard } from "./GlassCard";
 
 export function StoryPanel({
   description,
+  variant = "glass",
   className,
 }: {
   description: string;
+  variant?: "glass" | "plain" | "brand";
   className?: string;
 }) {
+  const inverted = variant === "brand";
+
   return (
-    <GlassCard className={className}>
-      <p className="text-[11px] tracking-[0.14em] text-brand">
+    <GlassCard variant={variant} className={className}>
+      <p className={cn("text-[11px] tracking-[0.14em]", inverted ? "text-white/85" : "text-brand")}>
         {tr.roomStage.storyLabel}
       </p>
-      <p className="mt-2 text-sm leading-relaxed text-ink/80">{description}</p>
+      <p className={cn("mt-2 text-sm leading-relaxed", inverted ? "text-white/85" : "text-ink/80")}>
+        {description}
+      </p>
     </GlassCard>
   );
 }

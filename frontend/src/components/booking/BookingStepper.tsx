@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +9,8 @@ export function BookingStepper({
   steps: string[];
   current: number;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <ol className="flex items-center justify-center gap-2 sm:gap-4">
       {steps.map((step, i) => {
@@ -16,7 +19,9 @@ export function BookingStepper({
         return (
           <li key={step} className="flex items-center gap-2 sm:gap-4">
             <div className="flex items-center gap-2">
-              <span
+              <motion.span
+                animate={{ scale: isCurrent && !reduceMotion ? 1.08 : 1 }}
+                transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
                 className={cn(
                   "flex size-7 shrink-0 items-center justify-center rounded-full border text-[11px] transition-colors",
                   isDone && "border-brand bg-brand text-white",
@@ -25,7 +30,7 @@ export function BookingStepper({
                 )}
               >
                 {isDone ? <Check className="size-3.5" strokeWidth={2} /> : i + 1}
-              </span>
+              </motion.span>
               <span
                 className={cn(
                   "hidden text-[11px] tracking-[0.1em] sm:inline",

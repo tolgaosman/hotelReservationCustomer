@@ -25,7 +25,7 @@ export function GlassCard({
         "rounded-2xl p-5",
         variant === "glass" &&
           "bg-white/92 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.55)] ring-1 ring-white/50 backdrop-blur-md",
-        variant === "brand" && "bg-brand/95 text-white ring-1 ring-white/25 backdrop-blur-md",
+        variant === "brand" && "bg-brand/55 text-white backdrop-blur-md",
         variant === "plain" && "border border-line bg-surface",
         className,
       )}

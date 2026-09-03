@@ -17,9 +17,7 @@
   --line: rgba(0, 0, 0, 0.1);
   --nav-h: 76px;
 
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-cormorant);
-  --font-script: var(--font-parisienne);
+  --font-sans: var(--font-montserrat);
 
   /* shadcn tokens mapped to the brand palette */
   --background: var(--surface);

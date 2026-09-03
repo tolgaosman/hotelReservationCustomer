@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { tr } from "@/lib/dictionary";
-import { heroSlides } from "@/lib/mock-data";
+import { heroSlides } from "@/lib/hero-slides";
 
 export function Hero() {
   const [index, setIndex] = useState(0);

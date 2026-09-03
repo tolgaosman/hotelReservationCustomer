@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { tr } from "@/lib/dictionary";
-import { hotelSettings } from "@/lib/mock-data";
+import type { HotelSettings } from "@/lib/types";
 
 const quickLinks = [
   { href: "/odalar", label: tr.nav.rooms },
@@ -15,7 +15,7 @@ const legalLinks = [
   { href: "/kosullar", label: tr.legal.kosullarTitle },
 ];
 
-export function Footer() {
+export function Footer({ settings }: { settings: HotelSettings }) {
   return (
     <footer className="border-t border-line bg-canvas">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
@@ -24,7 +24,7 @@ export function Footer() {
             {tr.brand.name}
           </span>
           <p className="mt-4 max-w-[26ch] text-sm leading-relaxed text-label">
-            {hotelSettings.location} kıyısında, denize sıfır konumuyla lüks
+            {settings.location} kıyısında, denize sıfır konumuyla lüks
             konaklama.
           </p>
         </div>
@@ -54,15 +54,15 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-label">
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0" strokeWidth={1.5} />
-              {hotelSettings.address}
+              {settings.address}
             </li>
             <li className="flex items-center gap-2">
               <Phone className="size-4 shrink-0" strokeWidth={1.5} />
-              {hotelSettings.phone}
+              {settings.phone}
             </li>
             <li className="flex items-center gap-2">
               <Mail className="size-4 shrink-0" strokeWidth={1.5} />
-              {hotelSettings.email}
+              {settings.email}
             </li>
           </ul>
         </div>

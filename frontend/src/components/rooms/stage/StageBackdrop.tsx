@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * The photo + scrim stack. Four fixed layers under the content grid:
@@ -25,25 +25,24 @@ export function StageBackdrop({
 
   return (
     <>
-      <AnimatePresence>
+      {images.map((src, i) => (
         <motion.div
-          key={active}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          key={src}
+          initial={{ opacity: i === active ? 1 : 0 }}
+          animate={{ opacity: i === active ? 1 : 0 }}
           transition={{ duration: reduce ? 0 : 0.9, ease: [0.32, 0.72, 0, 1] }}
           className="absolute inset-0 z-0"
         >
           <Image
-            src={images[active]}
-            alt={title}
+            src={src}
+            alt={`${title} - ${i + 1}`}
             fill
-            priority={active === 0}
+            priority={true}
             className="object-cover"
             sizes="100vw"
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
 
       <div className="absolute inset-0 z-10 bg-ink/10" />
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />

@@ -3,13 +3,16 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { tr } from "@/lib/dictionary";
-import { heroSlides, hotelSettings } from "@/lib/mock-data";
+import { heroSlides } from "@/lib/hero-slides";
+import { getSettings } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: `${tr.contact.heading} — ${tr.brand.name}`,
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSettings();
+
   return (
     <main>
       <PageHero title={tr.contact.heading} subtitle={tr.contact.subheading} image={heroSlides[4]} />
@@ -26,7 +29,7 @@ export default function ContactPage() {
                   <dt className="text-[11px] tracking-[0.14em] text-label">
                     {tr.contact.address}
                   </dt>
-                  <dd className="mt-1 text-sm text-ink">{hotelSettings.address}</dd>
+                  <dd className="mt-1 text-sm text-ink">{settings.address}</dd>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -35,7 +38,7 @@ export default function ContactPage() {
                   <dt className="text-[11px] tracking-[0.14em] text-label">
                     {tr.contact.phone}
                   </dt>
-                  <dd className="mt-1 text-sm text-ink">{hotelSettings.phone}</dd>
+                  <dd className="mt-1 text-sm text-ink">{settings.phone}</dd>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -44,13 +47,13 @@ export default function ContactPage() {
                   <dt className="text-[11px] tracking-[0.14em] text-label">
                     {tr.contact.email}
                   </dt>
-                  <dd className="mt-1 text-sm text-ink">{hotelSettings.email}</dd>
+                  <dd className="mt-1 text-sm text-ink">{settings.email}</dd>
                 </div>
               </div>
             </dl>
 
             <div className="mt-10 flex aspect-[4/3] items-center justify-center bg-canvas text-xs tracking-[0.14em] text-label">
-              {hotelSettings.location}
+              {settings.location}
             </div>
           </div>
         </div>

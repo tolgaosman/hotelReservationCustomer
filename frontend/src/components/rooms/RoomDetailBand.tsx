@@ -1,6 +1,6 @@
-import { AmenityList } from "@/components/rooms/AmenityList";
 import { RoomCard } from "@/components/rooms/RoomCard";
 import { RoomCardStack } from "@/components/rooms/stage/RoomCardStack";
+import { RoomReviews } from "@/components/rooms/RoomReviews";
 import { tr } from "@/lib/dictionary";
 import type { HotelSettings, Room } from "@/lib/types";
 
@@ -29,33 +29,14 @@ export function RoomDetailBand({
         </p>
       </div>
 
-      <div className="bg-surface py-20">
+      <div className="bg-surface py-20 xl:hidden">
         <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
           <RoomCardStack room={room} rooms={rooms} settings={settings} />
-
-          <div className="mt-16 grid gap-16 lg:grid-cols-2">
-            <div>
-              <h2 className="text-[11px] tracking-[0.14em] text-ink">
-                {tr.rooms.amenitiesHeading}
-              </h2>
-              <div className="mt-5">
-                <AmenityList amenities={room.amenities} />
-              </div>
-            </div>
-            <div>
-              <h2 className="text-[11px] tracking-[0.14em] text-ink">
-                {tr.roomStage.policiesHeading}
-              </h2>
-              <ul className="mt-5 space-y-3">
-                {tr.info.policiesList.map((policy) => (
-                  <li key={policy} className="text-sm leading-relaxed text-ink/75">
-                    {policy}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </div>
+      </div>
+
+      <div className="bg-surface">
+        <RoomReviews room={room} />
       </div>
 
       <div className="bg-canvas py-20">
