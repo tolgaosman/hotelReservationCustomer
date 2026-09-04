@@ -165,47 +165,47 @@ export function BookingFlow({
 
   if (confirmed) {
     return (
-      <div className="bg-canvas">
-        <div className="mx-auto max-w-lg px-6 py-24 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.32, 0.72, 0, 1] }}
-            className="mx-auto flex size-16 items-center justify-center rounded-full bg-brand/10 text-brand"
-          >
-            <CheckCircle2 className="size-8" strokeWidth={1.5} />
-          </motion.div>
-          <h1 className="mt-6 font-serif text-3xl text-ink">
-            {tr.reservation.confirmed.heading}
-          </h1>
-          <p className="mt-4 text-sm leading-relaxed text-ink/75">
-            {tr.reservation.confirmed.body}
-          </p>
-          <Link
-            href="/"
-            className="mt-8 inline-flex h-11 items-center justify-center rounded-none border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white"
-          >
-            {tr.reservation.confirmed.backHome}
-          </Link>
-        </div>
+      <div className="rounded-2xl border border-line/40 bg-surface p-10 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <motion.div
+          initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.32, 0.72, 0, 1] }}
+          className="mx-auto flex size-16 items-center justify-center rounded-full bg-brand/10 text-brand"
+        >
+          <CheckCircle2 className="size-8" strokeWidth={1.5} />
+        </motion.div>
+        <h1 className="mt-6 font-serif text-3xl text-ink">
+          {tr.reservation.confirmed.heading}
+        </h1>
+        <p className="mt-4 text-sm leading-relaxed text-ink/75">
+          {tr.reservation.confirmed.body}
+        </p>
+        <Link
+          href="/"
+          className="mt-8 inline-flex h-11 items-center justify-center rounded-xl border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white"
+        >
+          {tr.reservation.confirmed.backHome}
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="bg-canvas">
-      <div className="mx-auto max-w-[880px] px-6 py-16 lg:py-24">
-        <BookingStepper steps={STEP_LABELS} current={step} />
+    <div className="w-full">
+      <h3 className="mb-6 font-serif text-2xl text-ink tracking-wide">
+        {tr.reservation.roomsColumnHeading}
+      </h3>
+      <BookingStepper steps={STEP_LABELS} current={step} />
 
-        <div
-          className={cn(
-            "mt-14",
-            step === 1 || step === 2 || step === 3
-              ? ""
-              : "bg-surface p-6 shadow-lg sm:p-10 lg:p-12",
-          )}
-        >
-          <AnimatePresence mode="wait">
+      <div
+        className={cn(
+          "mt-10",
+          step === 1 || step === 2 || step === 3
+            ? ""
+            : "rounded-2xl border border-line/40 bg-surface p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-10",
+        )}
+      >
+        <AnimatePresence mode="wait">
             <motion.div
               key={step}
               initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
@@ -247,7 +247,7 @@ export function BookingFlow({
                   <Button
                     disabled={!canSearch || searching}
                     onClick={handleSearch}
-                    className="h-12 rounded-none bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover sm:col-span-2"
+                    className="h-12 rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover sm:col-span-2"
                   >
                     {searching ? tr.reservation.summary.submitting : tr.reservation.searchCta}
                   </Button>
@@ -265,7 +265,7 @@ export function BookingFlow({
               )}
 
               {step === 2 && (
-                <div className="bg-surface p-6 shadow-lg sm:p-10">
+                <div className="rounded-2xl border border-line/40 bg-surface p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-10">
                   <h2 className="mb-6 font-serif text-2xl text-ink">Ekstra Hizmetler (İsteğe Bağlı)</h2>
                   {addons.length === 0 ? (
                     <p className="text-sm text-ink/75">Şu an için seçilebilir ekstra bir hizmet bulunmuyor.</p>
@@ -274,11 +274,11 @@ export function BookingFlow({
                       {addons.map(addon => {
                         const isSelected = selectedAddonIds.includes(addon.id);
                         return (
-                          <div 
+                          <div
                             key={addon.id}
                             onClick={() => toggleAddon(addon.id)}
                             className={cn(
-                              "cursor-pointer border p-4 transition-colors",
+                              "cursor-pointer rounded-xl border p-4 transition-colors",
                               isSelected ? "border-brand bg-brand/5" : "border-line hover:border-brand/40"
                             )}
                           >
@@ -319,7 +319,7 @@ export function BookingFlow({
                     selectedAddons={addons.filter(a => selectedAddonIds.includes(a.id))}
                   />
                   {passportMissing && (
-                    <div className="mt-6 flex flex-col gap-3 border border-brand/30 bg-brand/5 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="mt-6 flex flex-col gap-3 rounded-xl border border-brand/30 bg-brand/5 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
                       <p className="text-sm text-brand">
                         {tr.reservation.passportRequired.message}
                       </p>
@@ -349,10 +349,11 @@ export function BookingFlow({
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
     </div>
   );
 }
+
+
 
 function StepNav({
   onBack,
@@ -377,7 +378,7 @@ function StepNav({
       <Button
         disabled={nextDisabled}
         onClick={onNext}
-        className="h-11 rounded-none bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
+        className="h-11 rounded-xl bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
       >
         {nextLabel}
       </Button>

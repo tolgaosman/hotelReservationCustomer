@@ -4,7 +4,8 @@ import type {
   ReservationStatus,
   Room,
   Addon,
-  Review
+  Review,
+  RestaurantReservation,
 } from "./types";
 
 /**
@@ -14,7 +15,7 @@ import type {
  */
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001/api";
 
-/** Tarayıcıyı bu adrese tam sayfa yönlendirmesiyle gönderin (fetch değil). */
+/** TarayÃ„Â±cÃ„Â±yÃ„Â± bu adrese tam sayfa yÃƒÂ¶nlendirmesiyle gÃƒÂ¶nderin (fetch deÃ„Å¸il). */
 export function googleAuthUrl(redirectTo: string): string {
   return `${API_URL}/auth/google/redirect?redirect=${encodeURIComponent(redirectTo)}`;
 }
@@ -44,13 +45,13 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
     const body = await res.json().catch(() => null);
     throw new ApiError(
       res.status,
-      body?.message ?? "İstek başarısız oldu, lütfen tekrar deneyin.",
+      body?.message ?? "Ã„Â°stek baÃ…Å¸arÃ„Â±sÃ„Â±z oldu, lÃƒÂ¼tfen tekrar deneyin.",
       body?.errors,
     );
   }
 
   const json = (await res.json()) as { data: T } | T;
-  // Bazı endpoint'ler (Addon/Review index) direkt array dönüyor, data wrap olmayabilir.
+  // BazÃ„Â± endpoint'ler (Addon/Review index) direkt array dÃƒÂ¶nÃƒÂ¼yor, data wrap olmayabilir.
   return (json && typeof json === 'object' && 'data' in json) ? (json as {data: T}).data : json as T;
 }
 
@@ -62,7 +63,7 @@ export function getRooms(): Promise<Room[]> {
   return apiFetch<Room[]>("/rooms", { next: { revalidate: 300 } });
 }
 
-/** Returns null on 404 instead of throwing — callers use notFound(). */
+/** Returns null on 404 instead of throwing Ã¢â‚¬â€ callers use notFound(). */
 export async function getRoom(slug: string): Promise<Room | null> {
   try {
     return await apiFetch<Room>(`/rooms/${slug}`, { next: { revalidate: 300 } });
@@ -137,6 +138,8 @@ export function createReservation(
 
 export interface CreateReviewInput {
   reservation_id: number;
+  room_id?: number;
+  guest_name?: string;
   rating: number;
   comment?: string;
 }
@@ -154,8 +157,8 @@ export function createReview(
 }
 
 /**
- * Müşteri hesabı. Bu, admin panelin employee hesaplarından ayrı bir
- * sistemdir — backend'deki AuthController/Customer modeline bakın.
+ * MÃƒÂ¼Ã…Å¸teri hesabÃ„Â±. Bu, admin panelin employee hesaplarÃ„Â±ndan ayrÃ„Â± bir
+ * sistemdir Ã¢â‚¬â€ backend'deki AuthController/Customer modeline bakÃ„Â±n.
  */
 export interface AuthUser {
   id: number;
@@ -166,7 +169,7 @@ export interface AuthUser {
   createdAt?: string; // YYYY-MM-DD
 }
 
-/** Giriş yapmış müşterinin kendi rezervasyonları (profil ekranı). */
+/** GiriÃ…Å¸ yapmÃ„Â±Ã…Å¸ mÃƒÂ¼Ã…Å¸terinin kendi rezervasyonlarÃ„Â± (profil ekranÃ„Â±). */
 export function fetchMyReservations(token: string): Promise<Reservation[]> {
   return apiFetch<Reservation[]>("/reservations", {
     headers: { Authorization: `Bearer ${token}` },
@@ -239,7 +242,7 @@ async function authRequest(path: string, body: unknown): Promise<AuthResponse> {
   if (!res.ok) {
     throw new ApiError(
       res.status,
-      json?.message ?? "İstek başarısız oldu, lütfen tekrar deneyin.",
+      json?.message ?? "Ã„Â°stek baÃ…Å¸arÃ„Â±sÃ„Â±z oldu, lÃƒÂ¼tfen tekrar deneyin.",
       json?.errors,
     );
   }
@@ -288,5 +291,35 @@ export function updateProfile(
     body: JSON.stringify(input),
     cache: "no-store",
     headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+
+export function getPhysicalRooms(): Promise<{id: number, number: string, type: string}[]> { return apiFetch<{id: number, number: string, type: string}[]>('/physical-rooms', { next: { revalidate: 300 } }); }
+
+export interface CreateRestaurantReservationInput {
+  date: string; // YYYY-MM-DD
+  time: string; // HH:mm
+  partySize: number;
+  fullName: string;
+  phone: string;
+  email?: string;
+  note?: string;
+  isHotelGuest: boolean;
+  reservationId?: number;
+  cardHolderName?: string;
+  cardNumber?: string;
+  cardExpiry?: string;
+  cardCvc?: string;
+}
+
+/** Otel misafiri olmayanların da kullanabildiği public bir uç nokta — token gerekmez. */
+export function createRestaurantReservation(
+  input: CreateRestaurantReservationInput,
+): Promise<RestaurantReservation> {
+  return apiFetch<RestaurantReservation>("/restaurant-reservations", {
+    method: "POST",
+    body: JSON.stringify(input),
+    cache: "no-store",
   });
 }

@@ -74,7 +74,14 @@ export function GuestDetailsForm({
         <Label htmlFor="identityNumber" className="text-[11px] tracking-[0.1em] text-label">
           {tr.reservation.guestDetails.identityNumber}
         </Label>
-        <IconInput id="identityNumber" icon={IdCard} required {...field("identityNumber")} />
+        <IconInput
+          id="identityNumber"
+          icon={IdCard}
+          required
+          inputMode="numeric"
+          value={value.identityNumber}
+          onChange={(e) => onChange({ ...value, identityNumber: e.target.value.replace(/[^0-9]/g, "") })}
+        />
       </div>
 
       <div className="flex flex-col gap-2">

@@ -19,8 +19,13 @@ return [
 
     'allowed_methods' => ['*'],
 
-    // Next.js müşteri sitesi (localhost:3000) buradan istek atar.
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    // Next.js müşteri sitesi buradan istek atar. LAN üzerinden (ör. telefon/başka
+    // makineden) test edilebilmesi için ek origin'ler FRONTEND_ADDITIONAL_URLS'de
+    // virgülle ayrılmış şekilde tanımlanabilir.
+    'allowed_origins' => array_filter(array_merge(
+        [env('FRONTEND_URL', 'http://localhost:3000')],
+        array_map('trim', explode(',', env('FRONTEND_ADDITIONAL_URLS', ''))),
+    )),
 
     'allowed_origins_patterns' => [],
 

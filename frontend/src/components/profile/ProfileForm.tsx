@@ -161,13 +161,14 @@ export function PersonalInfoForm({
               id="identityNumber"
               icon={IdCard}
               autoFocus={highlightPassport}
+              inputMode="numeric"
               className={
                 highlightPassport && passportEmpty
                   ? "border-brand focus-visible:ring-brand/30"
                   : undefined
               }
               value={identityNumber}
-              onChange={(e) => setIdentityNumber(e.target.value)}
+              onChange={(e) => setIdentityNumber(e.target.value.replace(/[^0-9]/g, ""))}
             />
           </div>
         </div>

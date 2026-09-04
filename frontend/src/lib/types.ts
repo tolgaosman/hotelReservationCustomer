@@ -4,13 +4,13 @@
  * layer can later be swapped for real API calls without reshaping anything
  * that already renders. Fields marked "not in backend yet" are additions
  * this site needs (photos, descriptions, slugs) that don't exist as
- * columns yet — the admin schema only carries a flat room catalog.
+ * columns yet Ã¢â‚¬â€ the admin schema only carries a flat room catalog.
  */
 
 export type RoomType =
   | "Standart"
   | "Deluxe"
-  | "Aile Odası"
+  | "Aile OdasÃ„Â±"
   | "Suite"
   | "King Suite";
 
@@ -29,7 +29,7 @@ export interface Room {
   slug: string;
   title: string;
   description: string;
-  size: number; // m²
+  size: number; // mÃ‚Â²
   rating: number;
   reviewCount: number;
   reviews?: Review[];
@@ -38,15 +38,21 @@ export interface Room {
 
 export interface Review {
   id: number;
-  reservation_id: number;
+  room_id?: number;
+  reservation_id?: number;
+  guest_name?: string;
   rating: number;
   comment: string;
   is_approved: boolean;
   created_at: string;
+  room?: {
+    number: string;
+  };
+  /** Only present when eager-loaded — see ReviewController::index. */
   reservation?: {
     guest?: {
       full_name: string;
-    }
+    };
   };
 }
 
@@ -95,7 +101,7 @@ export interface Reservation {
   status: ReservationStatus;
   totalAmount: number;
   note?: string;
-  /** Sadece ilişki yüklendiğinde gelir — bkz. ReservationResource. */
+  /** Sadece iliÃ…Å¸ki yÃƒÂ¼klendiÃ„Å¸inde gelir Ã¢â‚¬â€ bkz. ReservationResource. */
   room?: Room;
 }
 
@@ -104,4 +110,16 @@ export interface BookingSearch {
   departure: string;
   guests: number;
   units: number;
+}
+
+export type RestaurantPaymentStatus = "waived" | "paid";
+
+export interface RestaurantReservation {
+  id: number;
+  fullName: string;
+  date: string; // YYYY-MM-DD
+  time: string; // HH:mm
+  partySize: number;
+  paymentStatus: RestaurantPaymentStatus;
+  amount: number;
 }

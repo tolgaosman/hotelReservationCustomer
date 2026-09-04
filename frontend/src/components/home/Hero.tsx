@@ -19,7 +19,7 @@ export function Hero() {
       <AnimatePresence>
         <motion.div
           key={index}
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: reduce ? 0 : 0.9, ease: [0.32, 0.72, 0, 1] }}
@@ -40,7 +40,7 @@ export function Hero() {
 
       <div className="relative flex h-full min-h-[92vh] flex-col items-center justify-center px-6 text-center text-white lg:min-h-screen">
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-serif text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.95] tracking-tight"
@@ -48,7 +48,7 @@ export function Hero() {
           {tr.hero.titleTop}
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
           className="-mt-1 font-script text-[clamp(2.5rem,7vw,5.5rem)] text-white/95 sm:-mt-3"
@@ -56,7 +56,7 @@ export function Hero() {
           {tr.hero.titleScript}
         </motion.p>
         <motion.span
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.55 }}
           className="mt-6 text-[11px] tracking-[0.3em] text-white/80"

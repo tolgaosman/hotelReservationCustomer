@@ -1,13 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, MessageSquarePlus } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { tr } from "@/lib/dictionary";
 import { cn } from "@/lib/utils";
 import type { Room } from "@/lib/types";
 import { useStay } from "./StayProvider";
+import { RoomReviewModal } from "../RoomReviewModal";
 
 export function StageTitleBlock({
   room,
@@ -27,6 +29,7 @@ export function StageTitleBlock({
   className?: string;
 }) {
   const { bookingHref } = useStay();
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const reduce = useReducedMotion();
   const entrance = (delay: number) => ({
     initial: { opacity: 0, y: reduce ? 0 : 16 },
@@ -81,38 +84,49 @@ export function StageTitleBlock({
         </span>
       </motion.div>
 
-      <motion.div {...entrance(0.55)} className="mt-6 flex items-center gap-4">
-        {imagesCount > 1 && (
-          <button
-            type="button"
-            onClick={onPrev}
-            aria-label={tr.rooms.prevImage}
-            className="flex size-9 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-colors hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            <ChevronLeft className="size-4" strokeWidth={1.5} />
-          </button>
-        )}
-
-        <Link
-          href={bookingHref}
-          className={cn(
-            buttonVariants({ variant: "default" }),
-            "h-11 rounded-full bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
+      <motion.div {...entrance(0.55)} className="mt-6 flex flex-col items-center gap-4 w-full">
+        <div className="flex items-center gap-4">
+          {imagesCount > 1 && (
+            <button
+              type="button"
+              onClick={onPrev}
+              aria-label={tr.rooms.prevImage}
+              className="flex size-9 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-colors hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <ChevronLeft className="size-4" strokeWidth={1.5} />
+            </button>
           )}
-        >
-          {tr.rooms.bookRoom}
-        </Link>
 
-        {imagesCount > 1 && (
-          <button
-            type="button"
-            onClick={onNext}
-            aria-label={tr.rooms.nextImage}
-            className="flex size-9 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-colors hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          <Link
+            href={bookingHref}
+            className={cn(
+              buttonVariants({ variant: "default" }),
+              "h-11 rounded-full bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
+            )}
           >
-            <ChevronRight className="size-4" strokeWidth={1.5} />
-          </button>
-        )}
+            {tr.rooms.bookRoom}
+          </Link>
+
+          {imagesCount > 1 && (
+            <button
+              type="button"
+              onClick={onNext}
+              aria-label={tr.rooms.nextImage}
+              className="flex size-9 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-colors hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <ChevronRight className="size-4" strokeWidth={1.5} />
+            </button>
+          )}
+        </div>
+        
+        <button
+          type="button"
+          onClick={() => setIsReviewOpen(true)}
+          className="flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] text-white/80 hover:text-white transition-colors py-2 px-4 rounded-full border border-white/20 hover:border-white/40 hover:bg-white/5 backdrop-blur-sm"
+        >
+          <MessageSquarePlus size={14} />
+          {tr.rooms.reviewButton}
+        </button>
       </motion.div>
 
       {imagesCount > 1 && (
@@ -128,6 +142,12 @@ export function StageTitleBlock({
           ))}
         </div>
       )}
+
+      <RoomReviewModal 
+        isOpen={isReviewOpen} 
+        onClose={() => setIsReviewOpen(false)} 
+        roomTitle={room.title}
+      />
     </div>
   );
 }

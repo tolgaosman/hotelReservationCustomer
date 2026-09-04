@@ -30,9 +30,9 @@ export function AvailabilityResults({
           initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.35, delay: reduceMotion ? 0 : i * 0.05 }}
-          className="group grid gap-5 overflow-hidden bg-surface p-5 shadow-sm transition-shadow hover:shadow-lg sm:grid-cols-[200px_1fr_auto] sm:items-center"
+          className="group grid gap-5 overflow-hidden rounded-2xl border border-line/40 bg-surface p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-shadow hover:shadow-lg sm:grid-cols-[200px_1fr_auto] sm:items-center"
         >
-          <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
             <Image
               src={room.images[0]}
               alt={room.title}
@@ -59,7 +59,7 @@ export function AvailabilityResults({
           <button
             type="button"
             onClick={() => onSelect(room)}
-            className="h-11 border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white sm:justify-self-end"
+            className="h-11 rounded-xl border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white sm:justify-self-end"
           >
             {tr.reservation.selectRoom}
           </button>

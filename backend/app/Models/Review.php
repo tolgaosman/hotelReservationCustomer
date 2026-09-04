@@ -10,7 +10,9 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
+        'room_id',
         'reservation_id',
+        'guest_name',
         'rating',
         'comment',
         'is_approved',
@@ -19,6 +21,11 @@ class Review extends Model
     protected $casts = [
         'is_approved' => 'boolean',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 
     public function reservation()
     {

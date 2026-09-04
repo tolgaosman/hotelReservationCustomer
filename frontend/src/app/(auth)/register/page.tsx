@@ -87,8 +87,9 @@ function RegisterForm() {
             </label>
             <input
               type="text"
+              inputMode="numeric"
               value={identityNumber}
-              onChange={(e) => setIdentityNumber(e.target.value)}
+              onChange={(e) => setIdentityNumber(e.target.value.replace(/[^0-9]/g, ""))}
               required
               className="w-full rounded-xl border-none bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-all focus:ring-1 focus:ring-brand"
             />

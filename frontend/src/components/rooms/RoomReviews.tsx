@@ -9,18 +9,30 @@ function generateDummyReviews(room: Room): Review[] {
 
   return [
     {
-      id: "r1",
-      author: "Ahmet Y.",
-      date: "2023-10-12",
+      id: 1,
+      reservation_id: 101,
       rating: 5,
-      text: `Oda ${room.number} gerçekten çok temiz ve düzenliydi. ${room.title} için verdiğimiz ücrete kesinlikle değdi. Şehir manzarası harikaydı, herkese tavsiye ederim.`,
+      comment: `Oda ${room.number} gerçekten çok temiz ve düzenliydi. ${room.title} için verdiğimiz ücrete kesinlikle değdi. Şehir manzarası harikaydı, herkese tavsiye ederim.`,
+      is_approved: true,
+      created_at: "2023-10-12",
+      reservation: {
+        guest: {
+          full_name: "Ahmet Y."
+        }
+      }
     },
     {
-      id: "r2",
-      author: "Ayşe K.",
-      date: "2023-09-28",
+      id: 2,
+      reservation_id: 102,
       rating: 4,
-      text: `Oda ${room.number} kısa konaklamamız için gayet yeterliydi. Yataklar çok rahattı, otel personeline ilgilerinden dolayı teşekkürler.`,
+      comment: `Oda ${room.number} kısa konaklamamız için gayet yeterliydi. Yataklar çok rahattı, otel personeline ilgilerinden dolayı teşekkürler.`,
+      is_approved: true,
+      created_at: "2023-09-28",
+      reservation: {
+        guest: {
+          full_name: "Ayşe K."
+        }
+      }
     },
   ];
 }
@@ -34,7 +46,12 @@ export function RoomReviews({ room }: { room: Room }) {
         {tr.rooms.reviewsHeading}
       </h2>
       <div className="grid gap-6 sm:grid-cols-2">
-        {reviews.map((review) => (
+        {reviews.map((review) => {
+          const author = review.reservation?.guest?.full_name || "Misafir";
+          const date = review.created_at;
+          const text = review.comment;
+          
+          return (
           <div
             key={review.id}
             className="rounded-xl border border-line bg-white p-6 shadow-sm"
@@ -42,11 +59,11 @@ export function RoomReviews({ room }: { room: Room }) {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="flex size-10 items-center justify-center rounded-full bg-brand/10 text-brand font-medium">
-                  {review.author.charAt(0)}
+                  {author.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-ink">{review.author}</h4>
-                  <p className="text-xs text-label">{review.date}</p>
+                  <h4 className="text-sm font-medium text-ink">{author}</h4>
+                  <p className="text-xs text-label">{date}</p>
                 </div>
               </div>
               <div className="flex gap-0.5">
@@ -62,9 +79,9 @@ export function RoomReviews({ room }: { room: Room }) {
                 ))}
               </div>
             </div>
-            <p className="text-[13px] leading-relaxed text-ink/80">&ldquo;{review.text}&rdquo;</p>
+            <p className="text-[13px] leading-relaxed text-ink/80">&ldquo;{text}&rdquo;</p>
           </div>
-        ))}
+        )})}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Single source of truth for every user-facing string, in Turkish.
  * Components import `tr` directly. A future EN/RU dictionary just needs to
  * satisfy `Dictionary` — no component changes required.
@@ -61,6 +61,26 @@ export const tr = {
     reviews: (count: number) => `${count} Değerlendirme`,
     reviewsHeading: "Misafir Değerlendirmeleri",
     availableCount: (n: number) => n === 1 ? "Son 1 oda" : `${n} oda müsait`,
+    reviewButton: "Odayı Değerlendir",
+    reviewTitle: "Odayı Değerlendir",
+    reviewDescription: "hakkındaki görüşlerinizi diğer misafirlerle paylaşın.",
+    reviewReservationId: "Rezervasyon Numarası",
+    reviewReservationIdHint: "Rezervasyon onay e-postasında bulunan numarayı girin (Örn: 1042)",
+    reviewRating: "Puanınız",
+    reviewComment: "Değerlendirmeniz (Opsiyonel)",
+    reviewCommentPlaceholder: "Konaklamanız nasıldı? Odanın öne çıkan özellikleri nelerdi?",
+    reviewSubmit: "Değerlendirmeyi Gönder",
+    reviewSubmitting: "Gönderiliyor...",
+    reviewSuccessTitle: "Teşekkürler!",
+    reviewSuccessDesc: "Değerlendirmeniz başarıyla alındı ve yönetici onayından sonra yayınlanacaktır.",
+    reviewClose: "Kapat",
+    reviewError: "Değerlendirme gönderilirken bir hata oluştu. Lütfen rezervasyon numaranızı kontrol edin.",
+    reviewLoginRequiredTitle: "Değerlendirme İçin Giriş Yapın",
+    reviewLoginRequiredDesc: "Değerlendirme bırakabilmeniz için önce hesabınıza giriş yapmanız gerekiyor.",
+    reviewLoginButton: "Giriş Yap",
+    reviewNoStayTitle: "Değerlendirme Yapılamıyor",
+    reviewNoStayDesc: "Hesabınıza ait, bugün devam eden veya geçmiş bir konaklama bulunamadı. Sadece konakladığınız bir oda için değerlendirme yapabilirsiniz.",
+    reviewRoomMismatch: "Seçtiğiniz oda için hesabınıza ait güncel veya geçmiş bir konaklamanız bulunmuyor.",
   },
   roomStage: {
     stageAria: (title: string) => `${title} — görsel tanıtım`,
@@ -107,7 +127,8 @@ export const tr = {
   },
   reservation: {
     heading: "Online Rezervasyon",
-    subheading: "Tarih, oda ve misafir bilgilerinizi birkaç adımda tamamlayın",
+    subheading: "Konaklama ve restoran rezervasyonunuzu birkaç adımda tamamlayın",
+    roomsColumnHeading: "Konaklama Rezervasyonu",
     steps: {
       search: "Uygunluk",
       select: "Oda Seçimi",
@@ -146,6 +167,68 @@ export const tr = {
       message: "Rezervasyonu tamamlamak için Pasaport/Kimlik No bilgisi gereklidir.",
       completeProfileCta: "Profili Tamamla",
     },
+  },
+  restaurant: {
+    name: "Mirage Fine Dining",
+    tagline: "OASIS RESORT'UN İMZA RESTORANI",
+    columnHeading: "Restoran Rezervasyonu",
+    intro:
+      "Kıbrıs'ın eşsiz lezzetlerini modern bir dokunuşla buluşturan Mirage Fine Dining'de, denize nazır masamızda unutulmaz bir yemek deneyimi sizi bekliyor.",
+    hoursHeading: "Çalışma Saatleri",
+    hours: {
+      breakfast: { label: "Kahvaltı", time: "07:00 – 10:30" },
+      lunch: { label: "Öğle Yemeği", time: "12:30 – 15:00" },
+      dinner: { label: "Akşam Yemeği", time: "19:00 – 23:00" },
+    },
+    menuHeading: "Öğünlerimiz",
+    menu: {
+      breakfast: "Açık büfe serpme kahvaltı, taze gözleme ve sıcak içecek çeşitleri.",
+      lunch: "Akdeniz mutfağından hafif ana yemekler, mezeler ve günün çorbası.",
+      dinner: "Şef önerisi balık ve et spesiyalleri, canlı müzik eşliğinde à la carte servis.",
+    },
+    policyHeading: "Rezervasyon Politikası",
+    policiesList: [
+      "Rezervasyonlar seçilen saatten 15 dakika sonrasına kadar geçerlidir.",
+      "Otel misafirleri rezervasyon numaralarıyla ücretsiz masa ayırtabilir.",
+      "Misafir olmayan konuklardan kişi başı sabit bir rezervasyon ücreti alınır.",
+      "İptaller rezervasyon saatinden 2 saat öncesine kadar ücretsizdir.",
+    ],
+    form: {
+      heading: "Masa Rezervasyonu Yap",
+      date: "Tarih",
+      time: "Saat",
+      pickTime: "Saat seçin",
+      partySize: "Kişi Sayısı",
+      partySizeCount: (n: number) => `${n} Kişi`,
+      fullName: "Ad Soyad",
+      phone: "Telefon",
+      email: "E-posta (opsiyonel)",
+      note: "Özel İsteğiniz (opsiyonel)",
+      isHotelGuest: "Otelde konaklıyorum / bir rezervasyonum var",
+      reservationId: "Rezervasyon Numarası",
+      reservationIdHint: "Konaklama rezervasyon onayınızda bulunan numarayı girin (Örn: 1042)",
+      feeNotice: (amount: string) =>
+        `Otel misafiri değilseniz kişi başı ücret uygulanır. Bu rezervasyon için toplam tutar: ${amount}`,
+      paymentHeading: "Ödeme Bilgileri",
+      cardHolderName: "Kart Üzerindeki İsim",
+      cardNumber: "Kart Numarası",
+      cardExpiry: "SKT (AA/YY)",
+      cardCvc: "CVC",
+      submitFree: "Rezervasyonu Tamamla",
+      submitPaid: "Öde ve Rezervasyonu Tamamla",
+      submitting: "Gönderiliyor…",
+    },
+    confirmed: {
+      heading: "Masa Rezervasyonunuz Alındı",
+      bodyWaived: "Mirage Fine Dining'de masanız hazırlanıyor. Sizi ağırlamak için sabırsızlanıyoruz.",
+      bodyPaid: "Ödemeniz alındı ve masanız ayrıldı. Sizi ağırlamak için sabırsızlanıyoruz.",
+    },
+    errors: {
+      invalidReservation: "Rezervasyon numarası bu tarih için geçerli değil.",
+      generic: "Rezervasyon gönderilemedi, lütfen tekrar deneyin.",
+    },
+    bannerHeading: "Mirage'da Bir Akşam",
+    bannerTagline: "Kıbrıs'ın İncisi Oasis Resort",
   },
   auth: {
     loginHeading: "Giriş Yap",
@@ -265,3 +348,4 @@ export const tr = {
 } as const;
 
 export type Dictionary = typeof tr;
+

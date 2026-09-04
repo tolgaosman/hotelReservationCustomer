@@ -37,7 +37,7 @@ export function ReviewSection() {
               </div>
               <p className="text-sm italic text-ink/80 mb-4">&quot;{review.comment}&quot;</p>
               <div className="text-xs text-ink">
-                <strong>{review.reservation?.guest?.full_name || "Misafir"}</strong>
+                <strong>{review.guest_name || "Misafir"}</strong>
                 <span className="opacity-50 ml-2">
                   {format(new Date(review.created_at), "d MMM yyyy", { locale: trLocale })}
                 </span>

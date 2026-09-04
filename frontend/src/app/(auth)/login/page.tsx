@@ -50,7 +50,7 @@ function LoginForm() {
       router.push(redirectUrl);
     } catch (err) {
       setError(
-        err instanceof ApiError ? err.message : "Giriş yapılamadı, lütfen tekrar deneyin.",
+        err instanceof ApiError ? (err.status === 401 ? "Girdiğiniz şifre veya bilgiler yanlış, lütfen kontrol edin." : err.message) : "Giriş yapılamadı, lütfen tekrar deneyin.",
       );
     } finally {
       setIsSubmitting(false);
