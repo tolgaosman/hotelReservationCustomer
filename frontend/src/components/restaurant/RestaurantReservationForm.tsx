@@ -135,6 +135,7 @@ export function RestaurantReservationForm() {
               <Calendar
                 mode="single"
                 selected={date}
+                defaultMonth={date}
                 onSelect={setDate}
                 locale={trLocale}
                 disabled={{ before: new Date() }}

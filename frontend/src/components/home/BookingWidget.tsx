@@ -76,6 +76,7 @@ export function BookingWidget() {
                 <Calendar
                   mode="single"
                   selected={arrival}
+                  defaultMonth={arrival}
                   onSelect={setArrival}
                   locale={trLocale}
                   disabled={{ before: new Date() }}
@@ -98,6 +99,7 @@ export function BookingWidget() {
                 <Calendar
                   mode="single"
                   selected={departure}
+                  defaultMonth={departure}
                   onSelect={setDeparture}
                   locale={trLocale}
                   disabled={(date) => date <= (arrival ?? new Date())}

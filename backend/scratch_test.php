@@ -1,0 +1,1 @@
+<?php require __DIR__.'/vendor/autoload.php'; \ = require_once __DIR__.'/bootstrap/app.php'; \->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); echo json_encode(App\Models\Reservation::with('guest')->whereHas('guest', function(\) { \->where('full_name', 'like', '%Tolga%'); })->get(['id', 'guest_id', 'status'])->toArray(), JSON_PRETTY_PRINT);

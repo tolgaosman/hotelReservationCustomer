@@ -415,6 +415,7 @@ function DateField({
           <Calendar
             mode="single"
             selected={value}
+            defaultMonth={value}
             onSelect={onChange}
             locale={trLocale}
             disabled={disabled}
