@@ -56,6 +56,7 @@ export function EditReservationModal({
     if (!arrival || !departure) return;
 
     let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsSearching(true);
     setError(null);
 
@@ -79,7 +80,7 @@ export function EditReservationModal({
             setRoomId(undefined);
           }
         }
-      } catch (err) {
+      } catch {
         if (!cancelled) setError("Odalar aranırken hata oluştu.");
       } finally {
         if (!cancelled) setIsSearching(false);
@@ -90,6 +91,7 @@ export function EditReservationModal({
       cancelled = true;
       clearTimeout(timer);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrival, departure, guestCount, open]);
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -65,6 +65,7 @@ export function RoomReviewModal({ isOpen, onClose, roomTitle }: RoomReviewModalP
 
   useEffect(() => {
     if (isOpen && physicalRooms.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadingRooms(true);
       getPhysicalRooms()
         .then(rooms => {
@@ -77,6 +78,7 @@ export function RoomReviewModal({ isOpen, onClose, roomTitle }: RoomReviewModalP
 
   useEffect(() => {
     if (isOpen && token && reservations.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadingReservations(true);
       fetchMyReservations(token)
         .then(setReservations)
@@ -117,6 +119,7 @@ export function RoomReviewModal({ isOpen, onClose, roomTitle }: RoomReviewModalP
 
   useEffect(() => {
     if (!roomTouched && !loadingContext && defaultReservation) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRoomId(String(defaultReservation.roomId));
       setReservationId(defaultReservation.id);
     }
@@ -153,9 +156,10 @@ export function RoomReviewModal({ isOpen, onClose, roomTitle }: RoomReviewModalP
       );
 
       setStatus("success");
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { message?: string };
       setStatus("error");
-      setErrorMessage(err.message || tr.rooms.reviewError);
+      setErrorMessage(error.message || tr.rooms.reviewError);
     }
   };
 

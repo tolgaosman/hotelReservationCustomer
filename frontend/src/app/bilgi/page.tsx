@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Check, Clock, PawPrint, CigaretteOff, CalendarClock, CalendarX, Info, ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { AmenityList } from "@/components/rooms/AmenityList";
@@ -108,6 +108,7 @@ export default async function InfoPage() {
         {/* Decorative Full-Width Banner */}
         <div className="relative h-[350px] w-full rounded-2xl overflow-hidden group shadow-xl">
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-700 z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src={heroSlides[1]} 
             alt="Oasis Resort - Unutulmaz Anlar" 
@@ -118,7 +119,7 @@ export default async function InfoPage() {
               Unutulmaz Anlar...
             </h3>
             <p className="text-white/80 tracking-[0.2em] text-xs uppercase font-medium drop-shadow-md">
-              Kıbrıs'ın İncisi Oasis Resort
+              Kıbrıs&apos;ın İncisi Oasis Resort
             </p>
           </div>
         </div>

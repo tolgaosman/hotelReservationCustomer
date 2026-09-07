@@ -80,6 +80,7 @@ export default async function ContactPage() {
         {/* Decorative Full-Width Banner */}
         <div className="relative h-[350px] w-full rounded-2xl overflow-hidden group shadow-xl mt-12">
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-700 z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={heroSlides[2]}
             alt="Oasis Resort - Sizi Bekliyoruz"
@@ -90,7 +91,7 @@ export default async function ContactPage() {
               Sizi Ağırlamak İçin Sabırsızlanıyoruz
             </h3>
             <p className="text-white/80 tracking-[0.2em] text-xs uppercase font-medium drop-shadow-md">
-              Kıbrıs'ın İncisi Oasis Resort
+              Kıbrıs&apos;ın İncisi Oasis Resort
             </p>
           </div>
         </div>

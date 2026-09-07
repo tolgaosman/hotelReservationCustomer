@@ -145,7 +145,7 @@ export function RestaurantReservationForm() {
 
         <div className="flex flex-col gap-2">
           <Label className={labelClass}>{t.time}</Label>
-          <Select value={time} onValueChange={setTime}>
+          <Select value={time} onValueChange={(val) => val && setTime(val)}>
             <SelectTrigger className="h-12 w-full rounded-xl border border-line/50 bg-canvas/30 px-4">
               <SelectValue placeholder={t.pickTime} />
             </SelectTrigger>
@@ -159,7 +159,7 @@ export function RestaurantReservationForm() {
 
         <div className="flex flex-col gap-2">
           <Label className={labelClass}>{t.partySize}</Label>
-          <Select value={partySize} onValueChange={setPartySize}>
+          <Select value={partySize} onValueChange={(val) => val && setPartySize(val)}>
             <SelectTrigger className="h-12 w-full rounded-xl border border-line/50 bg-canvas/30 px-4">
               <SelectValue />
             </SelectTrigger>

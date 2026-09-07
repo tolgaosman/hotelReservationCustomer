@@ -41,6 +41,7 @@ export default async function ReservationPage() {
         {/* Decorative Full-Width Banner */}
         <div className="relative h-[350px] w-full rounded-2xl overflow-hidden group shadow-xl mt-16">
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-700 z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={facilityImages[0]}
             alt={tr.restaurant.name}

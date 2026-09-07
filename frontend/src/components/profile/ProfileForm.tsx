@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { IdCard, Lock, Mail, Phone, User } from "lucide-react";
+import { IdCard, Lock, Mail, User } from "lucide-react";
 import { tr } from "@/lib/dictionary";
 import { useAuth } from "@/lib/AuthContext";
 import { ApiError, updateProfile } from "@/lib/api";

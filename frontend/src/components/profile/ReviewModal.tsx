@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { tr } from "@/lib/dictionary";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

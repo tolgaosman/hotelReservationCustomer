@@ -38,6 +38,7 @@ export function ReservationList({ token }: { token: string }) {
 
   useEffect(() => {
     loadReservations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const { upcoming, past } = useMemo(() => {
