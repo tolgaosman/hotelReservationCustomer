@@ -1,3 +1,5 @@
+"use client";
+
 import { RoomCard } from "@/components/rooms/RoomCard";
 import { RoomCardStack } from "@/components/rooms/stage/RoomCardStack";
 import { RoomReviews } from "@/components/rooms/RoomReviews";

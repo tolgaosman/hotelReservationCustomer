@@ -28,7 +28,7 @@ export function RestaurantPolicyCard() {
   );
 }
 
-export function RestaurantShowcase({ hidePolicy }: { hidePolicy?: boolean } = {}) {
+export function RestaurantShowcase() {
   const tr = useDictionary();
   const t = tr.restaurant;
   const meals = [
@@ -38,9 +38,9 @@ export function RestaurantShowcase({ hidePolicy }: { hidePolicy?: boolean } = {}
   ];
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex h-full flex-col gap-8">
       {/* Banner / Ad */}
-      <div className="relative h-[220px] w-full overflow-hidden rounded-2xl shadow-xl">
+      <div className="relative h-[220px] w-full shrink-0 overflow-hidden rounded-2xl shadow-xl">
         <Image
           src={restaurantImages[3]}
           alt={t.name}
@@ -56,9 +56,9 @@ export function RestaurantShowcase({ hidePolicy }: { hidePolicy?: boolean } = {}
       </div>
 
       {/* Intro + Hours/Menu Card */}
-      <div className="relative overflow-hidden rounded-2xl border border-line/40 bg-surface p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:p-10">
+      <div className="relative flex flex-1 flex-col overflow-hidden rounded-2xl border border-line/40 bg-surface p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:p-10">
         <div className="absolute inset-0 pattern-diamond opacity-5 pointer-events-none" />
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-1 flex-col">
           <div className="flex items-center gap-4 mb-6 pb-5 border-b border-line/30">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-canvas">
               <UtensilsCrossed className="size-5 text-brand" strokeWidth={1.5} />
@@ -68,7 +68,7 @@ export function RestaurantShowcase({ hidePolicy }: { hidePolicy?: boolean } = {}
 
           <p className="mb-8 text-[14px] leading-relaxed text-ink/80">{t.intro}</p>
 
-          <dl className="space-y-6">
+          <dl className="mt-auto space-y-6">
             {meals.map(({ label, time, desc }, idx) => {
               const Icon = MEAL_ICONS[idx];
               return (
@@ -88,9 +88,6 @@ export function RestaurantShowcase({ hidePolicy }: { hidePolicy?: boolean } = {}
           </dl>
         </div>
       </div>
-
-      {/* Policy Card */}
-      {!hidePolicy && <RestaurantPolicyCard />}
     </div>
   );
 }

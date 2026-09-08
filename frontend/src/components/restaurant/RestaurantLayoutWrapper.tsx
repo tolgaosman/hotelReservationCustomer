@@ -7,29 +7,27 @@ import { RestaurantReservationForm } from "./RestaurantReservationForm";
 
 export function RestaurantLayoutWrapper() {
   const tr = useDictionary();
-  const [isShortForm, setIsShortForm] = useState(false);
+  const [, setIsShortForm] = useState(false);
 
   return (
-    <div className="grid gap-12 lg:grid-cols-2 items-start">
-      <div className="flex flex-col gap-8">
+    <div className="grid gap-12 lg:grid-cols-2 items-stretch">
+      <div className="flex h-full flex-col gap-8">
         <h3 className="font-serif text-2xl text-ink tracking-wide">
           {tr.restaurant.name}
         </h3>
-        <RestaurantShowcase hidePolicy={isShortForm} />
+        <RestaurantShowcase />
       </div>
-      
-      <div className="flex flex-col gap-8">
+
+      <div className="flex h-full flex-col gap-8">
         <h3 className="font-serif text-2xl text-ink tracking-wide">
           {tr.restaurant.columnHeading}
         </h3>
         <RestaurantReservationForm onShortFormChange={setIsShortForm} />
       </div>
 
-      {isShortForm && (
-        <div className="lg:col-span-2">
-          <RestaurantPolicyCard />
-        </div>
-      )}
+      <div className="lg:col-span-2">
+        <RestaurantPolicyCard />
+      </div>
     </div>
   );
 }
