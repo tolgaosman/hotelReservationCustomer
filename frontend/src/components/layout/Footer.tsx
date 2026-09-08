@@ -1,21 +1,25 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import type { HotelSettings } from "@/lib/types";
 
-const quickLinks = [
-  { href: "/odalar", label: tr.nav.rooms },
-  { href: "/rezervasyon", label: tr.nav.onlineBooking },
-  { href: "/galeri", label: "Galeri" },
-  { href: "/bilgi", label: tr.nav.info },
-];
 
-const legalLinks = [
-  { href: "/kvkk", label: tr.legal.kvkkTitle },
-  { href: "/kosullar", label: tr.legal.kosullarTitle },
-];
 
 export function Footer({ settings }: { settings: HotelSettings }) {
+  const tr = useDictionary();
+
+  const quickLinks = [
+    { href: "/odalar", label: tr.nav.rooms },
+    { href: "/rezervasyon", label: tr.nav.onlineBooking },
+    { href: "/galeri", label: tr.nav.gallery },
+    { href: "/bilgi", label: tr.nav.info },
+  ];
+
+  const legalLinks = [
+    { href: "/kvkk", label: tr.legal.kvkkTitle },
+    { href: "/kosullar", label: tr.legal.kosullarTitle },
+  ];
+
   return (
     <footer className="border-t border-line bg-canvas">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">

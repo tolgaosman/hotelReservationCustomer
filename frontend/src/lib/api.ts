@@ -169,9 +169,17 @@ export interface AuthUser {
   createdAt?: string; // YYYY-MM-DD
 }
 
-/** GiriÃ…Å¸ yapmÃ„Â±Ã…Å¸ mÃƒÂ¼Ã…Å¸terinin kendi rezervasyonlarÃ„Â± (profil ekranÃ„Â±). */
+/** Giriş yapmış müşterinin kendi rezervasyonları (profil ekranı). */
 export function fetchMyReservations(token: string): Promise<Reservation[]> {
   return apiFetch<Reservation[]>("/reservations", {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+}
+
+/** Giriş yapmış müşterinin kendi restoran rezervasyonları. */
+export function fetchMyRestaurantReservations(token: string): Promise<RestaurantReservation[]> {
+  return apiFetch<RestaurantReservation[]>("/restaurant-reservations", {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
@@ -307,10 +315,6 @@ export interface CreateRestaurantReservationInput {
   note?: string;
   isHotelGuest: boolean;
   reservationId?: number;
-  cardHolderName?: string;
-  cardNumber?: string;
-  cardExpiry?: string;
-  cardCvc?: string;
 }
 
 /** Otel misafiri olmayanların da kullanabildiği public bir uç nokta — token gerekmez. */

@@ -16,8 +16,11 @@ export function SiteChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const pathWithoutLang = pathname.replace(/^\/[a-zA-Z]{2}(?:\/|$)/, "/");
+  const normalizedPath = pathWithoutLang === "/" ? "/" : pathWithoutLang.replace(/\/$/, "");
+
   const hideChrome = CHROME_HIDDEN_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+    (prefix) => normalizedPath === prefix || normalizedPath.startsWith(`${prefix}/`),
   );
 
   return (

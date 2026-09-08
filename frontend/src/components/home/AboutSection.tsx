@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Check, Clock, PawPrint, CigaretteOff, CalendarClock, CalendarX } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import type { HotelSettings, Room } from "@/lib/types";
 import { AmenityList } from "@/components/rooms/AmenityList";
 
@@ -11,6 +13,7 @@ export function AboutSection({
   rooms: Room[];
   settings: HotelSettings;
 }) {
+  const tr = useDictionary();
   const allAmenities = Array.from(new Set(rooms.flatMap((room) => room.amenities)));
   const featuredImage = rooms[3]?.images[0] ?? rooms[0]?.images[0];
 
@@ -91,7 +94,7 @@ export function AboutSection({
             {tr.info.policies}
           </p>
           <ul className="mt-5 grid divide-y divide-line sm:grid-cols-2 sm:divide-y-0">
-            {tr.info.policiesList.map((policy, idx) => {
+            {tr.info.policiesList.map((policy: string, idx: number) => {
               const Icon = [PawPrint, CigaretteOff, CalendarClock, CalendarX][idx] || Check;
               return (
                 <li

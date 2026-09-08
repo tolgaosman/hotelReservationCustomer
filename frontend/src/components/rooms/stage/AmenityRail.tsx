@@ -1,5 +1,5 @@
 import { amenityIcon } from "@/components/rooms/AmenityList";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 
 /**
@@ -14,6 +14,7 @@ export function AmenityRail({
   amenities: string[];
   className?: string;
 }) {
+  const tr = useDictionary();
   return (
     <ul
       aria-label={tr.roomStage.amenitiesRailAria}

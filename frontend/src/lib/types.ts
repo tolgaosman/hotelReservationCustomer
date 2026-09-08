@@ -112,7 +112,7 @@ export interface BookingSearch {
   units: number;
 }
 
-export type RestaurantPaymentStatus = "waived" | "paid";
+export type RestaurantPaymentStatus = "waived" | "pay_at_hotel";
 
 export interface RestaurantReservation {
   id: number;

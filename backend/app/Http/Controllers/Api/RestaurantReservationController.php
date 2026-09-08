@@ -10,12 +10,31 @@ use App\Models\Reservation;
 use App\Models\RestaurantReservation;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Models\Customer;
 
 class RestaurantReservationController extends Controller
 {
     /** Otel misafiri olmayanlar için kişi başı sabit rezervasyon ücreti. */
     private const FEE_PER_PERSON = 350.0;
+
+    public function index(Request $request): JsonResponse
+    {
+        /** @var Customer $customer */
+        $customer = $request->attributes->get('customer');
+
+        $reservations = RestaurantReservation::query()
+            ->where(function($q) use ($customer) {
+                $q->where('email', $customer->email)
+                  ->orWhere('phone', $customer->phone);
+            })
+            ->orderByDesc('date')
+            ->orderByDesc('time')
+            ->get();
+
+        return RestaurantReservationResource::collection($reservations)->response();
+    }
 
     public function store(StoreRestaurantReservationRequest $request): JsonResponse
     {
@@ -48,10 +67,8 @@ class RestaurantReservationController extends Controller
             $payload['payment_status'] = RestaurantPaymentStatus::Waived->value;
             $payload['amount'] = 0;
         } else {
-            $payload['payment_status'] = RestaurantPaymentStatus::Paid->value;
+            $payload['payment_status'] = RestaurantPaymentStatus::PayAtHotel->value;
             $payload['amount'] = round($data['partySize'] * self::FEE_PER_PERSON, 2);
-            $payload['card_holder_name'] = $data['cardHolderName'];
-            $payload['card_last_four'] = substr(preg_replace('/\D/', '', $data['cardNumber']), -4);
         }
 
         $restaurantReservation = RestaurantReservation::create($payload);

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { tr as trLocale } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,6 +37,7 @@ const dateTriggerClass =
   "flex h-10 w-full items-center gap-2 border-b border-line text-left text-sm text-ink transition-colors hover:border-ink/40";
 
 export function BookingWidget() {
+  const tr = useDictionary();
   const router = useRouter();
   const [arrival, setArrival] = useState<Date | undefined>();
   const [departure, setDeparture] = useState<Date | undefined>();

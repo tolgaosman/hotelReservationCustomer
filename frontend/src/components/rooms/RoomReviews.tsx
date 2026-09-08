@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import type { Room, Review } from "@/lib/types";
 
 function generateDummyReviews(room: Room): Review[] {
@@ -38,6 +38,7 @@ function generateDummyReviews(room: Room): Review[] {
 }
 
 export function RoomReviews({ room }: { room: Room }) {
+  const tr = useDictionary();
   const reviews = generateDummyReviews(room);
 
   return (

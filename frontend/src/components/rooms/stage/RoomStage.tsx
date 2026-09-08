@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import type { Room } from "@/lib/types";
 import { AmenityRail } from "./AmenityRail";
 import { PolicyRail } from "./PolicyRail";
@@ -24,6 +24,7 @@ export function RoomStage({
   room: Room;
   rooms: Room[];
 }) {
+  const tr = useDictionary();
   const [active, setActive] = useState(0);
   const images = room.images;
   const go = (delta: number) =>

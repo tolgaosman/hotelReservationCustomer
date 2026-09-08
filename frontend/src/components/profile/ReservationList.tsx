@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { BedDouble, CalendarRange, Users } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatDate, formatTRY, nights } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { ApiError, fetchMyReservations, cancelReservation } from "@/lib/api";
@@ -26,6 +26,7 @@ function startOfToday(): Date {
 }
 
 export function ReservationList({ token }: { token: string }) {
+  const tr = useDictionary();
   const reduceMotion = useReducedMotion();
   const [reservations, setReservations] = useState<Reservation[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -128,6 +129,7 @@ function ReservationCard({
   token: string;
   onReload: () => void;
 }) {
+  const tr = useDictionary();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const { room, checkIn, checkOut, guestCount, totalAmount, status } = reservation;

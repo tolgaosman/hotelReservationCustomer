@@ -5,5 +5,5 @@ namespace App\Enums;
 enum RestaurantPaymentStatus: string
 {
     case Waived = 'waived';
-    case Paid = 'paid';
+    case PayAtHotel = 'pay_at_hotel';
 }

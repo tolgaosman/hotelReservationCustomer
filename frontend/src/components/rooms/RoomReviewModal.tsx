@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { getPhysicalRooms, fetchMyReservations, createReview } from "@/lib/api";
 import { useAuth } from "@/lib/AuthContext";
@@ -45,6 +45,7 @@ function matchesRoomTitle(type: string | undefined, roomTitle: string): boolean 
 }
 
 export function RoomReviewModal({ isOpen, onClose, roomTitle }: RoomReviewModalProps) {
+  const tr = useDictionary();
   const { token, isLoading: authLoading } = useAuth();
 
   const [guestName, setGuestName] = useState("");

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Globe, Menu as MenuIcon, User as UserIcon } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -15,22 +15,26 @@ import {
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 import { useAuth } from "@/lib/AuthContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
-const leftLinks = [
-  { href: "/rezervasyon", label: tr.nav.onlineBooking },
-  { href: "/odalar", label: tr.nav.rooms },
-  { href: "/galeri", label: tr.nav.gallery },
-];
 
-const rightLinks = [
-  { href: "/iletisim", label: tr.nav.contact },
-  { href: "/bilgi", label: tr.nav.info },
-];
 
 export function Navbar() {
+  const tr = useDictionary();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout } = useAuth();
+
+  const leftLinks = [
+    { href: "/odalar", label: tr.nav.rooms },
+    { href: "/restoran", label: tr.nav.restaurant },
+    { href: "/galeri", label: tr.nav.gallery },
+  ];
+
+  const rightLinks = [
+    { href: "/iletisim", label: tr.nav.contact },
+    { href: "/bilgi", label: tr.nav.info },
+  ];
 
   const linkClass = (href: string) =>
     cn(
@@ -42,14 +46,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b border-line bg-surface">
       <div className="relative mx-auto flex h-[var(--nav-h)] w-full items-center justify-between px-6 lg:px-10">
         <div className="hidden items-center gap-8 lg:flex">
-          <button
-            type="button"
-            className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink"
-            aria-label="Dil seçimi"
-          >
-            <Globe className="size-4" strokeWidth={1.5} />
-            {tr.nav.lang}
-          </button>
+          <LanguageSwitcher />
           <nav className="flex items-center gap-8">
             {leftLinks.map((link) => (
               <Link key={link.href} href={link.href} className={linkClass(link.href)}>

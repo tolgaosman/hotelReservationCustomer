@@ -24,11 +24,6 @@ class StoreRestaurantReservationRequest extends FormRequest
 
             'isHotelGuest' => ['required', 'boolean'],
             'reservationId' => ['required_if:isHotelGuest,true', 'nullable', 'integer', 'exists:reservations,id'],
-
-            'cardHolderName' => ['required_if:isHotelGuest,false', 'nullable', 'string', 'max:255'],
-            'cardNumber' => ['required_if:isHotelGuest,false', 'nullable', 'string', 'min:12', 'max:19'],
-            'cardExpiry' => ['required_if:isHotelGuest,false', 'nullable', 'string', 'max:7'],
-            'cardCvc' => ['required_if:isHotelGuest,false', 'nullable', 'string', 'min:3', 'max:4'],
         ];
     }
 
@@ -45,10 +40,6 @@ class StoreRestaurantReservationRequest extends FormRequest
             'email.email' => 'Geçerli bir e-posta adresi giriniz.',
             'reservationId.required_if' => 'Otel misafiriyseniz rezervasyon numaranızı giriniz.',
             'reservationId.exists' => 'Bu rezervasyon numarası bulunamadı.',
-            'cardHolderName.required_if' => 'Kart üzerindeki isim zorunludur.',
-            'cardNumber.required_if' => 'Kart numarası zorunludur.',
-            'cardExpiry.required_if' => 'Son kullanma tarihi zorunludur.',
-            'cardCvc.required_if' => 'CVC zorunludur.',
         ];
     }
 }

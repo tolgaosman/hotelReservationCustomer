@@ -1,11 +1,35 @@
 import Image from "next/image";
 import { Clock, UtensilsCrossed, ShieldCheck } from "lucide-react";
-import { tr } from "@/lib/dictionary";
-import { facilityImages } from "@/lib/hero-slides";
+import { useDictionary } from "@/lib/DictionaryContext";
+import { restaurantImages } from "@/lib/hero-slides";
 
 const MEAL_ICONS = [Clock, Clock, Clock] as const;
 
-export function RestaurantShowcase() {
+export function RestaurantPolicyCard() {
+  const tr = useDictionary();
+  const t = tr.restaurant;
+  return (
+    <div className="rounded-2xl border border-line/40 bg-surface p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:p-10">
+      <div className="flex items-center gap-4 mb-6 pb-5 border-b border-line/30">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-canvas">
+          <ShieldCheck className="size-5 text-brand" strokeWidth={1.5} />
+        </div>
+        <h2 className="font-serif text-2xl text-ink tracking-wide">{t.policyHeading}</h2>
+      </div>
+      <ul className="space-y-4">
+        {t.policiesList.map((policy: string) => (
+          <li key={policy} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink/80">
+            <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
+            <span>{policy}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function RestaurantShowcase({ hidePolicy }: { hidePolicy?: boolean } = {}) {
+  const tr = useDictionary();
   const t = tr.restaurant;
   const meals = [
     { label: t.hours.breakfast.label, time: t.hours.breakfast.time, desc: t.menu.breakfast },
@@ -18,7 +42,7 @@ export function RestaurantShowcase() {
       {/* Banner / Ad */}
       <div className="relative h-[220px] w-full overflow-hidden rounded-2xl shadow-xl">
         <Image
-          src={facilityImages[1]}
+          src={restaurantImages[3]}
           alt={t.name}
           fill
           className="object-cover"
@@ -66,22 +90,7 @@ export function RestaurantShowcase() {
       </div>
 
       {/* Policy Card */}
-      <div className="rounded-2xl border border-line/40 bg-surface p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:p-10">
-        <div className="flex items-center gap-4 mb-6 pb-5 border-b border-line/30">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-canvas">
-            <ShieldCheck className="size-5 text-brand" strokeWidth={1.5} />
-          </div>
-          <h2 className="font-serif text-2xl text-ink tracking-wide">{t.policyHeading}</h2>
-        </div>
-        <ul className="space-y-4">
-          {t.policiesList.map((policy) => (
-            <li key={policy} className="flex items-start gap-3 text-[14px] leading-relaxed text-ink/80">
-              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
-              <span>{policy}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {!hidePolicy && <RestaurantPolicyCard />}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { tr as trLocale } from "date-fns/locale";
 import type { Matcher } from "react-day-picker";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CalendarIcon, CheckCircle2 } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -31,12 +31,7 @@ import { BookingSummary } from "./BookingSummary";
 import { ApiError, createReservation, searchRooms, getAddons } from "@/lib/api";
 import type { Room, Addon } from "@/lib/types";
 
-const STEP_LABELS = [
-  tr.reservation.steps.search,
-  tr.reservation.steps.select,
-  "Ekstralar",
-  tr.reservation.steps.confirm,
-];
+
 
 function parseDate(value: string | null): Date | undefined {
   if (!value) return undefined;
@@ -51,10 +46,18 @@ export function BookingFlow({
   rooms: Room[];
   taxRate: number;
 }) {
+  const tr = useDictionary();
   const params = useSearchParams();
   const reduceMotion = useReducedMotion();
   const { user, token, isLoading } = useAuth();
   const router = useRouter();
+
+  const STEP_LABELS = [
+    tr.reservation.steps.search,
+    tr.reservation.steps.select,
+    "Ekstralar",
+    tr.reservation.steps.confirm,
+  ];
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -366,6 +369,7 @@ function StepNav({
   nextDisabled?: boolean;
   nextLabel: string;
 }) {
+  const tr = useDictionary();
   return (
     <div className="mt-10 flex items-center justify-between">
       <button
@@ -397,6 +401,7 @@ function DateField({
   onChange: (date: Date | undefined) => void;
   disabled: Matcher | Matcher[];
 }) {
+  const tr = useDictionary();
   return (
     <div className="flex flex-col gap-2">
       <span className="text-[10px] uppercase tracking-[0.14em] text-label">

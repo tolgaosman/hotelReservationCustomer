@@ -44,6 +44,9 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('reservations', [ReservationController::class, 'index'])
         ->middleware('auth.customer');
 
+    Route::get('restaurant-reservations', [RestaurantReservationController::class, 'index'])
+        ->middleware('auth.customer');
+
     // MÃ¼ÅŸteri kayÄ±t/giriÅŸ â€” admin panelin employee auth'undan tamamen
     // ayrÄ± (bkz. AuthController). Admin panel giriÅŸ bilgileri burada
     // geÃ§erli deÄŸildir.

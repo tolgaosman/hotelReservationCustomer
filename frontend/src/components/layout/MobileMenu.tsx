@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import {
   Sheet,
   SheetContent,
@@ -12,12 +12,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/AuthContext";
 
-const links = [
-  { href: "/", label: "Ana sayfa" },
-  { href: "/galeri", label: "Galeri" },
-  { href: "/bilgi", label: "Bilgi" },
-  { href: "/iletisim", label: "İletişim" },
-];
+
 
 interface MobileMenuProps {
   open: boolean;
@@ -25,7 +20,17 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
+  const tr = useDictionary();
   const { user, logout } = useAuth();
+
+  const links = [
+    { href: "/", label: "Ana sayfa" }, // TODO: tr.nav.home if exists
+    { href: "/odalar", label: tr.nav.rooms },
+    { href: "/restoran", label: tr.nav.restaurant },
+    { href: "/galeri", label: tr.nav.gallery },
+    { href: "/bilgi", label: tr.nav.info },
+    { href: "/iletisim", label: tr.nav.contact },
+  ];
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

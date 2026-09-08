@@ -2,18 +2,12 @@
 
 import { CalendarCheck, Lock, LogOut, User as UserIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { AuthUser } from "@/lib/api";
 
-export type ProfileSection = "reservations" | "info" | "security";
-
-const NAV_ITEMS: { id: ProfileSection; label: string; icon: LucideIcon }[] = [
-  { id: "reservations", label: tr.profile.nav.reservations, icon: CalendarCheck },
-  { id: "info", label: tr.profile.nav.info, icon: UserIcon },
-  { id: "security", label: tr.profile.nav.security, icon: Lock },
-];
+export type ProfileSection = "reservations" | "restaurantReservations" | "info" | "security";
 
 /** "Tolga Osman Falay" → "TF" */
 function initials(fullName: string): string {
@@ -37,6 +31,14 @@ export function ProfileSidebar({
   onLogout: () => void;
   passportMissing: boolean;
 }) {
+  const tr = useDictionary();
+
+  const NAV_ITEMS: { id: ProfileSection; label: string; icon: LucideIcon }[] = [
+    { id: "reservations", label: tr.profile.nav.reservations, icon: CalendarCheck },
+    { id: "restaurantReservations", label: tr.profile.nav.restaurantReservations || "Restoran", icon: CalendarCheck },
+    { id: "info", label: tr.profile.nav.info, icon: UserIcon },
+    { id: "security", label: tr.profile.nav.security, icon: Lock },
+  ];
   return (
     <aside className="lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:self-start">
       <div className="bg-surface p-6 shadow-sm">

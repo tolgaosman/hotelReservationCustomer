@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { updateReservation, searchRooms, ApiError } from "@/lib/api";
 import type { Reservation, Room } from "@/lib/types";
@@ -40,6 +40,7 @@ export function EditReservationModal({
   onOpenChange: (open: boolean) => void;
   onSuccess: () => void;
 }) {
+  const tr = useDictionary();
   const [arrival, setArrival] = useState<Date | undefined>(new Date(reservation.checkIn));
   const [departure, setDeparture] = useState<Date | undefined>(new Date(reservation.checkOut));
   const [guestCount, setGuestCount] = useState<number>(reservation.guestCount);

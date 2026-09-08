@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Users, Maximize, Star } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatTRY } from "@/lib/format";
 import type { Room } from "@/lib/types";
 
 export function RoomCard({ room }: { room: Room }) {
+  const tr = useDictionary();
   return (
     <Link
       href={`/odalar/${room.slug}`}

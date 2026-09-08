@@ -1,5 +1,5 @@
 import { GlassCard } from "@/components/rooms/stage/GlassCard";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatDate, formatTRY, nights } from "@/lib/format";
 import { priceStay } from "@/lib/pricing";
 import type { Room, Addon } from "@/lib/types";
@@ -30,6 +30,7 @@ export function BookingSummary({
   taxRate: number;
   selectedAddons?: Addon[];
 }) {
+  const tr = useDictionary();
   const n = nights(arrival, departure);
   const { roomTotal, taxAmount, total: roomBaseTotal } = priceStay(
     room.nightlyRate,

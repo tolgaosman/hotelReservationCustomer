@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   fetchCurrentCustomer,
@@ -27,11 +27,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const restoreStarted = useRef(false);
 
   // Sayfa açılışında localStorage'daki token'ı doğrular. Tüm setState
   // çağrıları bilinçli olarak tek bir async callback'te toplanır; böylece
   // effect gövdesinde senkron state güncellemesi (cascading render) olmaz.
   useEffect(() => {
+    // StrictMode dev'de effect'i iki kez çalıştırır; aynı token için
+    // backend'e çift istek atılmasını (ve çift 401'i) önler.
+    if (restoreStarted.current) return;
+    restoreStarted.current = true;
+
     let cancelled = false;
 
     async function restoreSession(): Promise<{ user: User; token: string } | null> {

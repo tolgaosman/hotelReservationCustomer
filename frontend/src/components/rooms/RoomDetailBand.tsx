@@ -1,7 +1,7 @@
 import { RoomCard } from "@/components/rooms/RoomCard";
 import { RoomCardStack } from "@/components/rooms/stage/RoomCardStack";
 import { RoomReviews } from "@/components/rooms/RoomReviews";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import type { HotelSettings, Room } from "@/lib/types";
 
 /**
@@ -19,6 +19,7 @@ export function RoomDetailBand({
   rooms: Room[];
   settings: HotelSettings;
 }) {
+  const tr = useDictionary();
   const others = rooms.filter((r) => r.slug !== room.slug);
 
   return (

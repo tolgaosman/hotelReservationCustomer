@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatTRY } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { GlassCard } from "./GlassCard";
@@ -22,6 +22,7 @@ export function TripPlanCard({
   variant?: "glass" | "plain" | "brand";
   className?: string;
 }) {
+  const tr = useDictionary();
   const { arrival, departure, setArrival, setDeparture, pricing, taxRate } =
     useStay();
   const hasDates = Boolean(arrival && departure);

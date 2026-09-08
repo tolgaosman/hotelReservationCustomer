@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import { IdCard, Lock, Mail, User } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { useAuth } from "@/lib/AuthContext";
 import { ApiError, updateProfile } from "@/lib/api";
 import type { AuthUser } from "@/lib/api";
@@ -65,6 +65,7 @@ export function PersonalInfoForm({
   token: string;
   highlightPassport?: boolean;
 }) {
+  const tr = useDictionary();
   const { updateUser } = useAuth();
 
   const [fullName, setFullName] = useState(user.fullName);
@@ -188,6 +189,7 @@ export function PersonalInfoForm({
 
 /** Şifre değiştirme — mevcut şifre backend'de Hash::check ile doğrulanır. */
 export function PasswordForm({ user, token }: { user: AuthUser; token: string }) {
+  const tr = useDictionary();
   const { updateUser } = useAuth();
 
   const [currentPassword, setCurrentPassword] = useState("");

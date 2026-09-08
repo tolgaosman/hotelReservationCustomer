@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { useAuth } from "@/lib/AuthContext";
 import { ProfileSidebar, type ProfileSection } from "./ProfileSidebar";
 import { PersonalInfoForm, PasswordForm } from "./ProfileForm";
 import { ReservationList } from "./ReservationList";
+import { RestaurantReservationList } from "./RestaurantReservationList";
 
 export function ProfileContent() {
+  const tr = useDictionary();
   const { user, token, isLoading, logout } = useAuth();
   const router = useRouter();
   const params = useSearchParams();
@@ -58,6 +60,7 @@ export function ProfileContent() {
             transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.32, 0.72, 0, 1] }}
           >
             {section === "reservations" && <ReservationList token={token} />}
+            {section === "restaurantReservations" && <RestaurantReservationList token={token} />}
             {section === "info" && (
               <PersonalInfoForm
                 user={user}
@@ -74,6 +77,7 @@ export function ProfileContent() {
 }
 
 export function ProfileSkeleton() {
+  const tr = useDictionary();
   return (
     <div className="grid gap-10 lg:grid-cols-[260px_1fr] lg:gap-14">
       <div className="h-[220px] animate-pulse bg-surface shadow-sm" />

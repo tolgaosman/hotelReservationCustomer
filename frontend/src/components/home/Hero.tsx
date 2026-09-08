@@ -4,10 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { heroSlides } from "@/lib/hero-slides";
 
 export function Hero() {
+  const tr = useDictionary();
   const [index, setIndex] = useState(0);
   const reduce = useReducedMotion();
 

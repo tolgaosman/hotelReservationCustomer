@@ -4,7 +4,7 @@ import type { LucideIcon } from "lucide-react";
 import { Globe, IdCard, Mail, MessageSquare, Phone, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 
 export interface GuestDetails {
   fullName: string;
@@ -41,6 +41,7 @@ export function GuestDetailsForm({
   value: GuestDetails;
   onChange: (value: GuestDetails) => void;
 }) {
+  const tr = useDictionary();
   const field = (key: keyof GuestDetails) => ({
     value: value[key],
     onChange: (e: React.ChangeEvent<HTMLInputElement>) =>

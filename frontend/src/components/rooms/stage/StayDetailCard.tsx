@@ -1,4 +1,4 @@
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { GlassCard } from "./GlassCard";
 
@@ -17,6 +17,7 @@ export function StayDetailCard({
   variant?: "brand" | "plain";
   className?: string;
 }) {
+  const tr = useDictionary();
   const policyPills = [tr.roomStage.noSmokingBadge, tr.roomStage.noPetsBadge];
   const inverted = variant === "brand";
 

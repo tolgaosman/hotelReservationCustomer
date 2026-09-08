@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Users } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatTRY } from "@/lib/format";
 import type { Room } from "@/lib/types";
 
@@ -12,6 +12,7 @@ export function AvailabilityResults({
   rooms: Room[];
   onSelect: (room: Room) => void;
 }) {
+  const tr = useDictionary();
   const reduceMotion = useReducedMotion();
 
   if (rooms.length === 0) {

@@ -26,3 +26,10 @@ export const facilityImages = [
   "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2400",
   "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?q=80&w=2400",
 ];
+
+export const restaurantImages = [
+  "/images/restaurant_1.jpg",
+  "/images/restaurant_2.jpg",
+  "/images/restaurant_3.jpg",
+  "/images/restaurant_4.jpg",
+];

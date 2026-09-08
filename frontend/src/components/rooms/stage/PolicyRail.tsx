@@ -1,5 +1,5 @@
 import { CalendarClock, CigaretteOff, PawPrint, ShieldCheck } from "lucide-react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 
 /**
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
  * copy are policy-specific.
  */
 export function PolicyRail({ className }: { className?: string }) {
+  const tr = useDictionary();
   const policies = [
     { label: tr.roomStage.noPetsRailLabel, Icon: PawPrint },
     { label: tr.roomStage.noSmokingRailLabel, Icon: CigaretteOff },

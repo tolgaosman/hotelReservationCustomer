@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 
 export function Logo() {
+  const tr = useDictionary();
   return (
     <Link
       href="/"

@@ -1,4 +1,4 @@
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import { GlassCard } from "./GlassCard";
 
@@ -11,6 +11,7 @@ export function StoryPanel({
   variant?: "glass" | "plain" | "brand";
   className?: string;
 }) {
+  const tr = useDictionary();
   const inverted = variant === "brand";
 
   return (

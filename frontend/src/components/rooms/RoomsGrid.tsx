@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import type { Room, RoomType } from "@/lib/types";
 import { RoomCard } from "./RoomCard";
 
 export function RoomsGrid({ rooms }: { rooms: Room[] }) {
+  const tr = useDictionary();
   const types = useMemo(
     () => Array.from(new Set(rooms.map((r) => r.type))) as RoomType[],
     [rooms],

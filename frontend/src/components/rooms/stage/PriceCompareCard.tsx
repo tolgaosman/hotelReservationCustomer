@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { formatTRY } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { Room } from "@/lib/types";
@@ -21,6 +21,7 @@ export function PriceCompareCard({
   variant?: "glass" | "plain" | "brand";
   className?: string;
 }) {
+  const tr = useDictionary();
   const max = Math.max(...rooms.map((r) => r.nightlyRate));
   const avg = rooms.reduce((s, r) => s + r.nightlyRate, 0) / rooms.length;
   const pct = Math.round(((room.nightlyRate - avg) / avg) * 100);

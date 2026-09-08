@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, Star, MessageSquarePlus } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
-import { tr } from "@/lib/dictionary";
+import { useDictionary } from "@/lib/DictionaryContext";
 import { cn } from "@/lib/utils";
 import type { Room } from "@/lib/types";
 import { useStay } from "./StayProvider";
@@ -28,6 +28,7 @@ export function StageTitleBlock({
   align?: "center" | "start";
   className?: string;
 }) {
+  const tr = useDictionary();
   const { bookingHref } = useStay();
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const reduce = useReducedMotion();
