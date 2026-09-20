@@ -1,3 +1,7 @@
 # each app manages its own ignores
 .DS_Store
 *.pem
+
+# production secrets (Hetzner deploy) — see .env.production.example
+.env
+.env.production
