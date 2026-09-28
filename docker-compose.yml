@@ -43,10 +43,6 @@ services:
 
       FRONTEND_URL: http://${PUBLIC_HOST}:${PUBLIC_PORT}
 
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      GOOGLE_REDIRECT_URI: http://${PUBLIC_HOST}:${PUBLIC_PORT}/api/auth/google/callback
-
       DB_SEED_ON_BOOT: ${DB_SEED_ON_BOOT:-false}
     depends_on:
       customer_db:
