@@ -35,7 +35,7 @@ export function ProfileSidebar({
 
   const NAV_ITEMS: { id: ProfileSection; label: string; icon: LucideIcon }[] = [
     { id: "reservations", label: tr.profile.nav.reservations, icon: CalendarCheck },
-    { id: "restaurantReservations", label: tr.profile.nav.restaurantReservations || "Restoran", icon: CalendarCheck },
+    { id: "restaurantReservations", label: (tr.profile.nav as any).restaurantReservations || "Restoran", icon: CalendarCheck },
     { id: "info", label: tr.profile.nav.info, icon: UserIcon },
     { id: "security", label: tr.profile.nav.security, icon: Lock },
   ];

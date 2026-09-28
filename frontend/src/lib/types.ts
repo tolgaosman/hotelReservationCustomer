@@ -122,4 +122,5 @@ export interface RestaurantReservation {
   partySize: number;
   paymentStatus: RestaurantPaymentStatus;
   amount: number;
+  note?: string;
 }

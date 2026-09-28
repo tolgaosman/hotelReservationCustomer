@@ -55,12 +55,31 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return (json && typeof json === 'object' && 'data' in json) ? (json as {data: T}).data : json as T;
 }
 
-export function getSettings(): Promise<HotelSettings> {
-  return apiFetch<HotelSettings>("/settings", { next: { revalidate: 300 } });
+export async function getSettings(): Promise<HotelSettings> {
+  try {
+    return await apiFetch<HotelSettings>("/settings", { next: { revalidate: 300 } });
+  } catch (err) {
+    console.warn("getSettings failed:", err);
+    return {
+      name: "Otel Rezervasyon",
+      email: "info@otel.com",
+      phone: "+90 555 555 5555",
+      taxRate: 10,
+      checkInTime: "14:00",
+      checkOutTime: "12:00",
+      address: "",
+      location: ""
+    };
+  }
 }
 
-export function getRooms(): Promise<Room[]> {
-  return apiFetch<Room[]>("/rooms", { next: { revalidate: 300 } });
+export async function getRooms(): Promise<Room[]> {
+  try {
+    return await apiFetch<Room[]>("/rooms", { next: { revalidate: 300 } });
+  } catch (err) {
+    console.warn("getRooms failed:", err);
+    return [];
+  }
 }
 
 /** Returns null on 404 instead of throwing Ã¢â‚¬â€ callers use notFound(). */
