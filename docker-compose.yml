@@ -1,5 +1,5 @@
 services:
-  db:
+  customer_db:
     image: mysql:8.0
     restart: unless-stopped
     environment:
@@ -8,19 +8,19 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - customer_db_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 5s
       retries: 20
 
-  backend:
+  customer_backend:
     build:
       context: ./backend
     restart: unless-stopped
     environment:
-      APP_NAME: "Otel Rezervasyon API"
+      APP_NAME: "Otel Rezervasyon API (Müşteri)"
       APP_ENV: production
       APP_KEY: ${APP_KEY}
       APP_DEBUG: "false"
@@ -30,7 +30,7 @@ services:
       LOG_LEVEL: error
 
       DB_CONNECTION: mysql
-      DB_HOST: db
+      DB_HOST: customer_db
       DB_PORT: 3306
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
@@ -49,28 +49,28 @@ services:
 
       DB_SEED_ON_BOOT: ${DB_SEED_ON_BOOT:-false}
     depends_on:
-      db:
+      customer_db:
         condition: service_healthy
 
-  frontend:
+  customer_frontend:
     build:
       context: ./frontend
       args:
         NEXT_PUBLIC_API_URL: http://${PUBLIC_HOST}:${PUBLIC_PORT}/api
     restart: unless-stopped
     depends_on:
-      - backend
+      - customer_backend
 
-  proxy:
+  customer_proxy:
     image: nginx:alpine
     restart: unless-stopped
     ports:
-      - "${PUBLIC_PORT}:80"
+      - "4007:80"
     volumes:
       - ./nginx/proxy.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
-      - frontend
-      - backend
+      - customer_frontend
+      - customer_backend
 
 volumes:
-  db_data:
+  customer_db_data:
