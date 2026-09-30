@@ -51,7 +51,7 @@ function RegisterForm() {
       router.push(redirectUrl);
     } catch (err) {
       setError(
-        err instanceof ApiError ? err.message : "Kayıt oluşturulamadı, lütfen tekrar deneyin.",
+        err instanceof ApiError ? err.message : tr.auth.registerFailed,
       );
     } finally {
       setIsSubmitting(false);
@@ -64,7 +64,7 @@ function RegisterForm() {
       subheading={tr.auth.registerSubheading}
       imageSrc="/images/register-bg.jpg"
       imageAlt="Oasis Resort Interior"
-      overlayText="Lüks ve konforun birleştiği odayı keşfetmeye hazır mısınız?"
+      overlayText={tr.auth.registerOverlay}
     >
       <form onSubmit={handleSubmit} className="space-y-3">
         {error && <p className="mb-2 text-sm text-red-600">{error}</p>}
@@ -150,12 +150,12 @@ function RegisterForm() {
       </form>
 
       <p className="mt-6 text-center text-sm text-ink/80">
-        {tr.auth.hasAccount.split("?")[0]}?{" "}
+        {tr.auth.hasAccountLead}{" "}
         <Link
           href={`/login${redirectUrl !== "/" ? `?redirect=${encodeURIComponent(redirectUrl)}` : ""}`}
           className="font-medium text-ink hover:underline"
         >
-          Giriş Yapın
+          {tr.auth.hasAccountCta}
         </Link>
       </p>
     </AuthSplitLayout>

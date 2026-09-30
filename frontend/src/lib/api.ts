@@ -23,7 +23,7 @@ const API_URL =
     ? (process.env.API_INTERNAL_URL ?? PUBLIC_API_URL)
     : PUBLIC_API_URL;
 
-/** TarayÃ„Â±cÃ„Â±yÃ„Â± bu adrese tam sayfa yÃƒÂ¶nlendirmesiyle gÃƒÂ¶nderin (fetch deÃ„Å¸il). */
+/** Tarayıcıyı bu adrese tam sayfa yönlendirmesiyle gönderin (fetch değil). */
 export function googleAuthUrl(redirectTo: string): string {
   return `${API_URL}/auth/google/redirect?redirect=${encodeURIComponent(redirectTo)}`;
 }
@@ -53,13 +53,13 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
     const body = await res.json().catch(() => null);
     throw new ApiError(
       res.status,
-      body?.message ?? "Ã„Â°stek baÃ…Å¸arÃ„Â±sÃ„Â±z oldu, lÃƒÂ¼tfen tekrar deneyin.",
+      body?.message ?? "İstek başarısız oldu, lütfen tekrar deneyin.",
       body?.errors,
     );
   }
 
   const json = (await res.json()) as { data: T } | T;
-  // BazÃ„Â± endpoint'ler (Addon/Review index) direkt array dÃƒÂ¶nÃƒÂ¼yor, data wrap olmayabilir.
+  // Bazı endpoint'ler (Addon/Review index) direkt array dönüyor, data wrap olmayabilir.
   return (json && typeof json === 'object' && 'data' in json) ? (json as {data: T}).data : json as T;
 }
 
@@ -90,7 +90,7 @@ export async function getRooms(): Promise<Room[]> {
   }
 }
 
-/** Returns null on 404 instead of throwing Ã¢â‚¬â€ callers use notFound(). */
+/** Returns null on 404 instead of throwing — callers use notFound(). */
 export async function getRoom(slug: string): Promise<Room | null> {
   try {
     return await apiFetch<Room>(`/rooms/${slug}`, { next: { revalidate: 300 } });
@@ -184,8 +184,8 @@ export function createReview(
 }
 
 /**
- * MÃƒÂ¼Ã…Å¸teri hesabÃ„Â±. Bu, admin panelin employee hesaplarÃ„Â±ndan ayrÃ„Â± bir
- * sistemdir Ã¢â‚¬â€ backend'deki AuthController/Customer modeline bakÃ„Â±n.
+ * Müşteri hesabı. Bu, admin panelin employee hesaplarından ayrı bir
+ * sistemdir — backend'deki AuthController/Customer modeline bakın.
  */
 export interface AuthUser {
   id: number;
@@ -277,7 +277,7 @@ async function authRequest(path: string, body: unknown): Promise<AuthResponse> {
   if (!res.ok) {
     throw new ApiError(
       res.status,
-      json?.message ?? "Ã„Â°stek baÃ…Å¸arÃ„Â±sÃ„Â±z oldu, lÃƒÂ¼tfen tekrar deneyin.",
+      json?.message ?? "İstek başarısız oldu, lütfen tekrar deneyin.",
       json?.errors,
     );
   }

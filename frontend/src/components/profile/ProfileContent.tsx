@@ -35,7 +35,7 @@ export function ProfileContent() {
   const passportMissing = !user.identityNumber?.trim();
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[260px_1fr] lg:gap-14">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-14">
       <ProfileSidebar
         user={user}
         active={section}
@@ -44,7 +44,7 @@ export function ProfileContent() {
         passportMissing={passportMissing}
       />
 
-      <div>
+      <div className="min-w-0">
         {passportMissing && (
           <p className="mb-6 border border-brand/30 bg-brand/5 px-6 py-4 text-sm text-brand">
             {tr.profile.passportMissingBanner}
@@ -79,7 +79,7 @@ export function ProfileContent() {
 export function ProfileSkeleton() {
   const tr = useDictionary();
   return (
-    <div className="grid gap-10 lg:grid-cols-[260px_1fr] lg:gap-14">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-14">
       <div className="h-[220px] animate-pulse bg-surface shadow-sm" />
       <div className="grid gap-4">
         {[0, 1].map((i) => (

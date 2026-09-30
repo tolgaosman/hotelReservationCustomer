@@ -40,7 +40,7 @@ export function ProfileSidebar({
     { id: "security", label: tr.profile.nav.security, icon: Lock },
   ];
   return (
-    <aside className="lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:self-start">
+    <aside className="min-w-0 lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:self-start">
       <div className="bg-surface p-6 shadow-sm">
         <div className="flex items-center gap-4">
           <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-brand/10 font-serif text-lg text-brand">

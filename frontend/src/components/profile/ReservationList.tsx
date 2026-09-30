@@ -78,7 +78,7 @@ export function ReservationList({ token }: { token: string }) {
         <p className="mt-2 text-sm text-ink/70">{tr.profile.reservations.emptySubtitle}</p>
         <Link
           href="/rezervasyon"
-          className="mt-8 inline-flex h-11 items-center justify-center border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white"
+          className="mt-8 inline-flex h-auto min-h-11 py-2.5 whitespace-normal text-center leading-snug items-center justify-center border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white"
         >
           {tr.profile.reservations.emptyCta}
         </Link>

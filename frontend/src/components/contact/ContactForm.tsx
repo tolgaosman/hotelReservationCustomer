@@ -71,7 +71,7 @@ ${name} <${from}>`;
       </div>
       <Button
         type="submit"
-        className="h-12 w-full rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover sm:w-fit sm:px-10"
+        className="h-auto min-h-12 px-4 py-2.5 whitespace-normal text-center leading-snug w-full rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover sm:w-fit sm:px-10"
       >
         {tr.contact.form.submit}
       </Button>

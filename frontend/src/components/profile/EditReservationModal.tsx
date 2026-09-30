@@ -238,7 +238,7 @@ export function EditReservationModal({
             <button
               type="submit"
               disabled={isSubmitting || isSearching || availableRooms?.length === 0}
-              className="flex h-11 items-center justify-center rounded-xl bg-brand px-8 text-[11px] tracking-[0.14em] text-white transition-colors hover:bg-brand-hover disabled:opacity-50 shadow-sm"
+              className="flex h-auto min-h-11 py-2.5 whitespace-normal text-center leading-snug items-center justify-center rounded-xl bg-brand px-8 text-[11px] tracking-[0.14em] text-white transition-colors hover:bg-brand-hover disabled:opacity-50 shadow-sm"
             >
               {isSubmitting ? (
                 <Loader2 className="size-4 animate-spin" />

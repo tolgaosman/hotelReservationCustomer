@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDictionary } from "@/lib/DictionaryContext";
 
-const languages = [
+export const languages = [
   { code: "tr", name: "Türkçe", short: "TR" },
   { code: "en", name: "English", short: "EN" },
   { code: "ru", name: "Русский", short: "RU" },
@@ -18,12 +18,16 @@ const languages = [
   { code: "fr", name: "Français", short: "FR" },
 ];
 
+export function setLocaleCookie(code: string) {
+  document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=${60 * 60 * 24 * 365}`;
+}
+
 export function LanguageSwitcher() {
   const router = useRouter();
   const tr = useDictionary();
 
   const handleLanguageChange = (code: string) => {
-    document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=${60 * 60 * 24 * 365}`;
+    setLocaleCookie(code);
     router.refresh();
   };
 
@@ -31,7 +35,7 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger
         className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink hover:text-ink/80 transition-colors"
-        aria-label="Dil seçimi"
+        aria-label={tr.nav.langAria}
       >
         <Globe className="size-4" strokeWidth={1.5} />
         {tr.nav.lang}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useDictionary } from "@/lib/DictionaryContext";
 import {
   Sheet,
@@ -11,6 +12,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/AuthContext";
+import { languages, setLocaleCookie } from "./LanguageSwitcher";
 
 
 
@@ -22,9 +24,10 @@ interface MobileMenuProps {
 export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
   const tr = useDictionary();
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   const links = [
-    { href: "/", label: "Ana sayfa" }, // TODO: tr.nav.home if exists
+    { href: "/", label: tr.nav.home },
     { href: "/odalar", label: tr.nav.rooms },
     { href: "/restoran", label: tr.nav.restaurant },
     { href: "/galeri", label: tr.nav.gallery },
@@ -34,13 +37,13 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-sm">
+      <SheetContent side="right" className="overflow-y-auto data-[side=right]:w-full data-[side=right]:sm:w-3/4 sm:max-w-sm">
         <SheetHeader className="border-b border-line pb-4">
           <SheetTitle className="font-serif text-center text-lg tracking-[0.08em] text-ink">
             {tr.brand.name}
           </SheetTitle>
         </SheetHeader>
-        <nav className="flex flex-1 flex-col px-6">
+        <nav className="flex flex-1 flex-col px-6 pb-8">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -99,6 +102,32 @@ export function MobileMenu({ open, onOpenChange }: MobileMenuProps) {
           >
             {tr.nav.bookNow}
           </Link>
+          <div
+            className="mt-8 flex flex-wrap items-center justify-center gap-2"
+            role="group"
+            aria-label={tr.nav.langAria}
+          >
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                type="button"
+                onClick={() => {
+                  setLocaleCookie(lang.code);
+                  onOpenChange(false);
+                  router.refresh();
+                }}
+                aria-current={tr.nav.lang === lang.short ? "true" : undefined}
+                className={cn(
+                  "h-10 min-w-12 border px-3 text-[11px] tracking-[0.14em] transition-colors",
+                  tr.nav.lang === lang.short
+                    ? "border-brand bg-brand text-white"
+                    : "border-line text-ink hover:bg-ink/5",
+                )}
+              >
+                {lang.short}
+              </button>
+            ))}
+          </div>
         </nav>
       </SheetContent>
     </Sheet>

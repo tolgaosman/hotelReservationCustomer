@@ -136,12 +136,12 @@ export function Navbar() {
             type="button"
             onClick={() => setMenuOpen(true)}
             className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-ink lg:hidden"
-            aria-label="Menüyü aç"
+            aria-label={tr.nav.menu}
           >
             <span className="flex size-8 items-center justify-center rounded-full border border-line">
               <MenuIcon className="size-3.5" strokeWidth={1.5} />
             </span>
-            <span className="hidden sm:inline">Menü</span>
+            <span className="hidden sm:inline">{tr.nav.menu}</span>
           </button>
         </div>
       </div>

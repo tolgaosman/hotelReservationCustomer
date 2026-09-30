@@ -28,8 +28,7 @@ export function Footer({ settings }: { settings: HotelSettings }) {
             {tr.brand.name}
           </span>
           <p className="mt-4 max-w-[26ch] text-sm leading-relaxed text-label">
-            {settings.location} kıyısında, denize sıfır konumuyla lüks
-            konaklama.
+            {tr.footer.tagline(settings.location)}
           </p>
         </div>
 
@@ -72,7 +71,7 @@ export function Footer({ settings }: { settings: HotelSettings }) {
         </div>
 
         <div>
-          <h3 className="text-[11px] tracking-[0.14em] text-ink">Yasal</h3>
+          <h3 className="text-[11px] tracking-[0.14em] text-ink">{tr.footer.legal}</h3>
           <ul className="mt-4 space-y-3">
             {legalLinks.map((link) => (
               <li key={link.href}>

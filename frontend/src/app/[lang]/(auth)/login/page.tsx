@@ -69,7 +69,7 @@ function LoginForm() {
       }
       imageSrc="/images/login-bg.jpg"
       imageAlt="Oasis Resort"
-      overlayText="Eşsiz bir tatil deneyimi için binlerce seçeneği keşfedin."
+      overlayText={tr.auth.loginOverlay}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
@@ -144,17 +144,17 @@ function LoginForm() {
             "w-full h-12 text-sm tracking-wide text-ink rounded-xl border-line/50 hover:bg-canvas/50 transition-colors mt-3 flex items-center justify-center"
           )}
         >
-          Misafir Olarak Devam Et
+          {tr.auth.continueAsGuest}
         </Link>
       </form>
 
       <p className="mt-8 text-center text-sm text-ink/80">
-        {tr.auth.noAccount.split("?")[0]}?{" "}
+        {tr.auth.noAccountLead}{" "}
         <Link
           href={`/register${redirectUrl !== "/" ? `?redirect=${encodeURIComponent(redirectUrl)}` : ""}`}
           className="font-medium text-ink hover:underline"
         >
-          Kayıt Olun
+          {tr.auth.noAccountCta}
         </Link>
       </p>
     </AuthSplitLayout>

@@ -107,7 +107,7 @@ export function ReviewModal({
             <Button
               type="submit"
               disabled={submitting}
-              className="mt-4 h-11 w-full rounded-none bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
+              className="mt-4 h-auto min-h-11 py-2.5 whitespace-normal text-center leading-snug w-full rounded-none bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
             >
               {submitting ? "Gönderiliyor..." : "Gönder"}
             </Button>

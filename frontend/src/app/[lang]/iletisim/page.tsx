@@ -89,7 +89,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
         </div>
 
         {/* Decorative Full-Width Banner */}
-        <div className="relative h-[350px] w-full rounded-2xl overflow-hidden group shadow-xl mt-12">
+        <div className="relative h-[280px] w-full sm:h-[350px] rounded-2xl overflow-hidden group shadow-xl mt-12">
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-700 z-10" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -98,7 +98,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none text-center px-6">
-            <h3 className="text-white font-script text-5xl md:text-7xl opacity-95 drop-shadow-lg mb-4">
+            <h3 className="text-white font-script text-4xl leading-tight sm:text-5xl md:text-7xl opacity-95 drop-shadow-lg mb-4">
               {tr.contact.bannerTitle}
             </h3>
             <p className="text-white/80 tracking-[0.2em] text-xs uppercase font-medium drop-shadow-md">

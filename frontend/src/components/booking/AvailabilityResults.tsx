@@ -60,7 +60,7 @@ export function AvailabilityResults({
           <button
             type="button"
             onClick={() => onSelect(room)}
-            className="h-11 rounded-xl border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white sm:justify-self-end"
+            className="h-auto min-h-11 py-2.5 whitespace-normal text-center leading-snug rounded-xl border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white sm:justify-self-end"
           >
             {tr.reservation.selectRoom}
           </button>

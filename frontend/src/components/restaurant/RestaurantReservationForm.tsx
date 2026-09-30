@@ -300,7 +300,7 @@ export function RestaurantReservationForm({
       <Button
         type="submit"
         disabled={!canSubmit || submitting}
-        className="mt-8 h-12 w-full rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
+        className="mt-8 h-auto min-h-12 px-4 py-2.5 whitespace-normal text-center leading-snug w-full rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
       >
         {submitting ? t.submitting : canUseFreeReservation ? t.submitFree : t.submitPaid}
       </Button>

@@ -108,6 +108,20 @@ body {
   }
 }
 
+/* iOS Safari, 16px altındaki alanlara odaklanınca sayfayı yakınlaştırır. */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

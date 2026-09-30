@@ -53,7 +53,7 @@ function SectionCard({
 
 const labelClass = "text-[11px] tracking-[0.1em] text-label";
 const primaryButtonClass =
-  "h-11 w-fit rounded-none bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover";
+  "h-auto min-h-11 w-fit py-2.5 whitespace-normal text-center leading-snug rounded-none bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover";
 
 /** Ad Soyad / E-posta / Telefon / Pasaport — profilin ana bölümü. */
 export function PersonalInfoForm({

@@ -185,7 +185,7 @@ export function BookingFlow({
         </p>
         <Link
           href="/"
-          className="mt-8 inline-flex h-11 items-center justify-center rounded-xl border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white"
+          className="mt-8 inline-flex h-auto min-h-11 py-2.5 whitespace-normal text-center leading-snug items-center justify-center rounded-xl border border-brand px-8 text-[11px] tracking-[0.14em] text-brand transition-colors hover:bg-brand hover:text-white"
         >
           {tr.reservation.confirmed.backHome}
         </Link>
@@ -250,7 +250,7 @@ export function BookingFlow({
                   <Button
                     disabled={!canSearch || searching}
                     onClick={handleSearch}
-                    className="h-12 rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover sm:col-span-2"
+                    className="h-auto min-h-12 py-2.5 whitespace-normal text-center leading-snug rounded-xl bg-brand text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover sm:col-span-2"
                   >
                     {searching ? tr.reservation.summary.submitting : tr.reservation.searchCta}
                   </Button>
@@ -298,7 +298,7 @@ export function BookingFlow({
                   <StepNav
                     onBack={() => setStep(1)}
                     onNext={() => setStep(3)}
-                    nextLabel="Devam Et"
+                    nextLabel={tr.reservation.continue}
                   />
                 </div>
               )}
@@ -371,18 +371,18 @@ function StepNav({
 }) {
   const tr = useDictionary();
   return (
-    <div className="mt-10 flex items-center justify-between">
+    <div className="mt-10 flex items-center justify-between gap-4">
       <button
         type="button"
         onClick={onBack}
-        className="text-[11px] tracking-[0.14em] text-label transition-colors hover:text-ink"
+        className="shrink-0 py-3 text-[11px] tracking-[0.14em] text-label transition-colors hover:text-ink"
       >
         {tr.reservation.back}
       </button>
       <Button
         disabled={nextDisabled}
         onClick={onNext}
-        className="h-11 rounded-xl bg-brand px-8 text-[11px] tracking-[0.14em] text-white hover:bg-brand-hover"
+        className="h-auto min-h-11 flex-1 whitespace-normal rounded-xl bg-brand px-5 py-2.5 text-center text-[11px] leading-snug tracking-[0.14em] text-white hover:bg-brand-hover sm:flex-none sm:px-8"
       >
         {nextLabel}
       </Button>
