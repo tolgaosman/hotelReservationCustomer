@@ -6,14 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useDictionary } from "@/lib/DictionaryContext";
 
-export function ContactForm() {
+export function ContactForm({ recipient }: { recipient: string }) {
   const tr = useDictionary();
   const [sent, setSent] = useState(false);
 
   if (sent) {
     return (
       <p className="flex flex-1 items-center rounded-xl border border-line/40 bg-canvas p-8 text-sm leading-relaxed text-ink/80">
-        {tr.reservation.confirmed.body}
+        {tr.contact.sent}
       </p>
     );
   }
@@ -22,6 +22,14 @@ export function ContactForm() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const name = String(data.get("name") ?? "");
+        const from = String(data.get("email") ?? "");
+        const message = String(data.get("message") ?? "");
+        const body = `${message}
+
+${name} <${from}>`;
+        window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
         setSent(true);
       }}
       className="grid gap-6"
@@ -32,6 +40,7 @@ export function ContactForm() {
         </Label>
         <Input
           id="contact-name"
+          name="name"
           required
           className="h-12 rounded-xl border-line/50 bg-canvas/30 px-4 focus-visible:border-brand focus-visible:ring-brand/20"
         />
@@ -42,6 +51,7 @@ export function ContactForm() {
         </Label>
         <Input
           id="contact-email"
+          name="email"
           type="email"
           required
           className="h-12 rounded-xl border-line/50 bg-canvas/30 px-4 focus-visible:border-brand focus-visible:ring-brand/20"
@@ -53,6 +63,7 @@ export function ContactForm() {
         </Label>
         <textarea
           id="contact-message"
+          name="message"
           required
           rows={5}
           className="resize-none rounded-xl border border-line/50 bg-canvas/30 px-4 py-3 text-sm text-ink outline-none transition-colors focus-visible:border-brand"

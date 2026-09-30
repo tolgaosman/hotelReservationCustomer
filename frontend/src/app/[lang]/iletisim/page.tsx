@@ -42,7 +42,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                 {tr.contact.heading}
               </h2>
             </div>
-            <ContactForm />
+            <ContactForm recipient={settings.email} />
           </div>
 
           {/* Details Card */}
@@ -55,7 +55,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                   <MapPin className="size-5 text-brand" strokeWidth={1.5} />
                 </div>
                 <h2 className="font-serif text-2xl text-ink tracking-wide">
-                  Konum
+                  {tr.contact.locationTitle}
                 </h2>
               </div>
 
@@ -75,8 +75,13 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                 ))}
               </dl>
 
-              <div className="mt-8 flex flex-1 min-h-[160px] items-center justify-center rounded-xl bg-canvas text-center text-[11px] tracking-[0.14em] text-label uppercase">
-                {settings.location}
+              <div className="mt-8 flex-1 min-h-[220px] overflow-hidden rounded-xl bg-canvas">
+                <iframe
+                  title={tr.contact.mapTitle}
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=33.3020%2C35.3320%2C33.3360%2C35.3500&layer=mapnik&marker=35.3412%2C33.3190"
+                  className="h-full min-h-[220px] w-full border-0"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -89,15 +94,15 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={heroSlides[2]}
-            alt="Oasis Resort - Sizi Bekliyoruz"
+            alt={tr.contact.bannerTitle}
             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none text-center px-6">
             <h3 className="text-white font-script text-5xl md:text-7xl opacity-95 drop-shadow-lg mb-4">
-              Sizi Ağırlamak İçin Sabırsızlanıyoruz
+              {tr.contact.bannerTitle}
             </h3>
             <p className="text-white/80 tracking-[0.2em] text-xs uppercase font-medium drop-shadow-md">
-              Kıbrıs&apos;ın İncisi Oasis Resort
+              {tr.contact.bannerSubtitle}
             </p>
           </div>
         </div>
