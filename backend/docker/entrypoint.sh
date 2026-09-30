@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e
 
-echo "Veritabanı bekleniyor ($DB_HOST:$DB_PORT)..."
-until mysqladmin ping -h"$DB_HOST" -P"$DB_PORT" -u"$DB_USERNAME" -p"$DB_PASSWORD" --silent; do
+echo "Veritabani bekleniyor ($DB_HOST:$DB_PORT)..."
+until php -r 'try { new PDO("mysql:host=".getenv("DB_HOST").";port=".getenv("DB_PORT"), getenv("DB_USERNAME"), getenv("DB_PASSWORD")); } catch (Throwable $e) { fwrite(STDERR, $e->getMessage().PHP_EOL); exit(1); }'; do
     sleep 2
 done
-echo "Veritabanı hazır."
+echo "Veritabani hazir."
 
 php artisan config:clear
 php artisan migrate --force
