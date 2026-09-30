@@ -13,7 +13,15 @@ import type {
  * dev server; override with NEXT_PUBLIC_API_URL in .env.local for other
  * environments.
  */
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001/api";
+const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001/api";
+/**
+ * Sunucu tarafı (SSR) istekleri Docker ağı içinden doğrudan backend'e gider
+ * (API_INTERNAL_URL); tarayıcı ise herkese açık adresi kullanır.
+ */
+const API_URL =
+  typeof window === "undefined"
+    ? (process.env.API_INTERNAL_URL ?? PUBLIC_API_URL)
+    : PUBLIC_API_URL;
 
 /** TarayÃ„Â±cÃ„Â±yÃ„Â± bu adrese tam sayfa yÃƒÂ¶nlendirmesiyle gÃƒÂ¶nderin (fetch deÃ„Å¸il). */
 export function googleAuthUrl(redirectTo: string): string {

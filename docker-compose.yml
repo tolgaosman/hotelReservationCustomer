@@ -54,6 +54,8 @@ services:
       args:
         NEXT_PUBLIC_API_URL: http://${PUBLIC_HOST}:${PUBLIC_PORT}/api
     restart: unless-stopped
+    environment:
+      API_INTERNAL_URL: http://customer_backend/api
     depends_on:
       - customer_backend
 

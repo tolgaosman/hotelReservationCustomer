@@ -7,6 +7,9 @@ import { getSettings } from "@/lib/api";
 import { getDictionary } from "@/lib/dictionary";
 import { DictionaryProvider } from "@/lib/DictionaryContext";
 
+// Oda/ayar verisi çalışma zamanında backend'den okunur; build sırasında boş halde statik üretilmesin.
+export const dynamic = "force-dynamic";
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
