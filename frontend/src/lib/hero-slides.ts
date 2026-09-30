@@ -21,7 +21,7 @@ export const facilityImages = [
   "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=2400",
   "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2400",
   "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2400",
-  "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?q=80&w=2400",
+  "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2400",
   "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=2400",
   "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2400",
   "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?q=80&w=2400",
