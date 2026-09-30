@@ -29,7 +29,7 @@ export default async function ReservationPage({ params }: { params: Promise<{ la
       />
 
       <section className="mx-auto max-w-[1300px] px-6 lg:px-10 pt-12">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24 items-start">
           <div className="flex flex-col">
             <Suspense fallback={null}>
               <BookingFlow rooms={rooms} taxRate={settings.taxRate} />

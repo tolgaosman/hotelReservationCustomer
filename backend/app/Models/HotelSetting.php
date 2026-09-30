@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Mevcut admin panel tablosuna bağlanır (tek satırlık ayar tablosu).
- * `address`/`location` bu proje tarafından eklenmiştir (bkz.
- * 2026_09_03_071037 migration). `current()` admin'deki
- * HotelSetting::current() ile aynı desen — id=1 varsayımı yapılmaz.
+ * Otel ayarları (tek satırlık tablo). `current()` id=1 varsayımı yapmaz.
  */
 class HotelSetting extends Model
 {

@@ -10,7 +10,7 @@ export function RestaurantLayoutWrapper() {
   const [, setIsShortForm] = useState(false);
 
   return (
-    <div className="grid gap-12 lg:grid-cols-2 items-stretch">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-stretch">
       <div className="flex h-full flex-col gap-8">
         <h3 className="font-serif text-2xl text-ink tracking-wide">
           {tr.restaurant.name}
