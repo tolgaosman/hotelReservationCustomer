@@ -51,41 +51,34 @@ export function AboutSection({
           </div>
         </div>
 
-        <div className="mt-8 grid divide-y divide-line bg-surface shadow-sm sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-          <div className="flex items-center gap-4 p-8 sm:p-10">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand/10">
-              <Clock className="size-5 text-brand" strokeWidth={1.5} />
-            </span>
-            <div>
-              <p className="text-[11px] tracking-[0.14em] text-label">
-                {tr.info.checkIn}
-              </p>
-              <p className="mt-1 font-serif text-xl text-ink">
-                {settings.checkInTime}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 p-8 sm:p-10">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand/10">
-              <Clock className="size-5 text-brand" strokeWidth={1.5} />
-            </span>
-            <div>
-              <p className="text-[11px] tracking-[0.14em] text-label">
-                {tr.info.checkOut}
-              </p>
-              <p className="mt-1 font-serif text-xl text-ink">
-                {settings.checkOutTime}
-              </p>
-            </div>
+        <div className="mt-8 grid bg-surface shadow-sm lg:grid-cols-[280px_1fr]">
+          {/* Check-in / check-out stacked */}
+          <div className="grid grid-cols-2 divide-x divide-line border-b border-line lg:grid-cols-1 lg:divide-x-0 lg:divide-y lg:border-b-0 lg:border-r">
+            {[
+              { label: tr.info.checkIn, time: settings.checkInTime },
+              { label: tr.info.checkOut, time: settings.checkOutTime },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="flex flex-col items-center justify-center gap-3 px-4 py-8 text-center lg:py-10"
+              >
+                <span className="flex size-12 items-center justify-center rounded-full bg-brand/10">
+                  <Clock className="size-5 text-brand" strokeWidth={1.5} />
+                </span>
+                <p className="text-[11px] tracking-[0.14em] text-label">
+                  {item.label}
+                </p>
+                <p className="font-serif text-3xl text-ink">{item.time}</p>
+              </div>
+            ))}
           </div>
 
-          <div className="p-8 sm:col-span-2 sm:p-10 lg:col-span-2">
-            <p className="text-[11px] tracking-[0.14em] text-label">
+          {/* Amenities as one merged table */}
+          <div className="p-6 sm:p-8">
+            <p className="mb-5 text-[11px] tracking-[0.14em] text-label">
               {tr.info.facilities}
             </p>
-            <div className="mt-5">
-              <AmenityList amenities={allAmenities} />
-            </div>
+            <AmenityList amenities={allAmenities} variant="cells" />
           </div>
         </div>
 

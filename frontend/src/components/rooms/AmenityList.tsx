@@ -1,16 +1,31 @@
 ﻿import {
   AirVent,
   Bath,
+  BedDouble,
   Coffee,
   ConciergeBell,
+  Maximize,
+  Mountain,
   ShieldCheck,
+  ShowerHead,
+  Sofa,
   Sun,
+  Tv,
   Waves,
   Wifi,
   type LucideIcon,
 } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
+  "LED TV": Tv,
+  Duş: ShowerHead,
+  "İki Yatak Odası": BedDouble,
+  "Oturma Alanı": Sofa,
+  "Ayrı Oturma Alanı": Sofa,
+  "Panoramik Deniz Manzarası": Mountain,
+  "Özel Jakuzili Teras": Bath,
+  "Geniş Salon": Maximize,
+  "Kişiye Özel Concierge": ConciergeBell,
   "Deniz Manzarası": Waves,
   Balkon: Sun,
   Klima: AirVent,
@@ -32,8 +47,29 @@ export function AmenityList({
   variant = "default" 
 }: { 
   amenities: string[],
-  variant?: "default" | "table"
+  variant?: "default" | "table" | "cells"
 }) {
+  if (variant === "cells") {
+    return (
+      <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-line/60 bg-line/60 sm:grid-cols-2 lg:grid-cols-3">
+        {amenities.map((amenity) => {
+          const Icon = iconMap[amenity] ?? fallbackIcon;
+          return (
+            <li
+              key={amenity}
+              className="flex items-center gap-3 bg-surface px-4 py-3.5 text-sm text-ink/80 transition-colors hover:bg-canvas/60"
+            >
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand/10">
+                <Icon className="size-4 text-brand" strokeWidth={1.5} />
+              </span>
+              <span className="leading-snug">{amenity}</span>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
   if (variant === "table") {
     return (
       <div className="rounded-xl border border-line/30 bg-surface overflow-hidden shadow-sm">
